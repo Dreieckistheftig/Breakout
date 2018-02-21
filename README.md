@@ -15,19 +15,18 @@ This pattern makes it possible for more than one person to effectively work simu
 game development and abstract the processes of the program.
 
 Order of tasks:
-	1)	Writing the Model class and creating a "ball" point which moves and bounces of all window borders.
+*	1)	Writing the Model class and creating a "ball" point which moves and bounces of all window borders.
    	The bounce aims a physically logical direction.
- 	  Important: measuring the time for a constant FPS rate.
- 2)	Writing of the View class and a subclass to display the game process in an applet on the PC.
- 3)	Writing of the Controller class which enables user input via mouse or direction keys.
- 4)	Creating bar coordinates in the model an make them changeable by the user input. The bar is
- 	  counted by the ball as border to bounce of.
- 5)	Ground border is changed to GAME OVER.
- 6)	Implementation of three lives and GAME OVER upon losing all. Don't forget to show them on screen.
- 7)	Being creative and designing levels of different brick layouts which are general enough to 
- 	  be interpreted by all views.
- 8)	Making the bricks in the layouts objects for the ball to bounce off in the right direction (and
- 	  being destroyed by the ball).
- 9)	Level clear, level advance and score implementation.
- 10) Extras like highscore, items, etc.
- 
+ 	Important: measuring the time for a constant FPS rate.
+* 	2)	Writing of the View class and a subclass to display the game process in an applet on the PC.
+*	3)	Writing of the Controller class which enables user input via mouse or direction keys.
+*	4)	Creating bar coordinates in the model an make them changeable by the user input. The bar is
+ 	counted by the ball as border to bounce of.
+*	5)	Ground border is changed to GAME OVER.
+*	6)	Implementation of three lives and GAME OVER upon losing all. Don't forget to show them on screen.
+*	7)	Being creative and designing levels of different brick layouts which are general enough to 
+ 	be interpreted by all views.
+*	8)	Making the bricks in the layouts objects for the ball to bounce off in the right direction (and
+ 	being destroyed by the ball).
+*	9)	Level clear, level advance and score implementation.
+*	10)	Extras like highscore, items, etc.
