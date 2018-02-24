@@ -33,5 +33,13 @@ package de.cau.infprogoo.lighthouse;
  * 	10)	Extras like highscore, items, etc.
  */
 public class Main {
-
+	private static final int RESOLUTION_Y = 14;
+	private static final int RESOLUTION_X = 28;
+	
+	public void init() {
+		Model model = new Model();
+		//all different View subclasses
+		model.addView(/*views*/);
+		Controller controller = new Controller(model);
+	}
 }
