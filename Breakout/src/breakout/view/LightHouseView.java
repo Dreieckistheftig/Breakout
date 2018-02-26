@@ -85,6 +85,10 @@ public class LightHouseView {
 		int index = 0;
 		for (int y = 0; y < image.getHeight(); y++) {
 			for (int x = 0; x < image.getWidth(); x++) {
+
+				// See http://www.binaryconvert.com/convert_signed_int.html?hexadecimal=FFFFFFFF
+				// for conversion from int to byte.
+
 				// argb -> [8a, 8r, 8g, 8b]
 				int argb = image.getRGB(x, y);
 				// byte b = (byte)argb;
