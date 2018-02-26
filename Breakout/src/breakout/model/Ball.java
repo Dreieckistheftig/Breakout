@@ -28,7 +28,7 @@ public class Ball {
 	}
 
 	/**
-	 * Update the ball location. Check, wether it will collide with a wall. If yes,
+	 * Update the ball location. Check, whether it will collide with a wall. If yes,
 	 * the movement direction is changed.
 	 * 
 	 * @param delta
@@ -41,23 +41,23 @@ public class Ball {
 		y += velY * delta;
 
 		// Check for collision with x-axis.
-		if (x < r) {
-			x = r;
+		if (x<= 0) {
+//			 x = r;
 			// change moving direction to +
 			velX = Math.abs(velX);
-		} else if (x > gw.width - r) {
-			x = gw.width - r;
+		} else if (x > ((gw.width - 1) - r)) {
+			x = gw.width - 1 - r;
 			// change moving direction to -
 			velX = -Math.abs(velX);
 		}
 
 		// Check for collision with y-axis.
-		if (y < r) {
-			y = r;
+		if (y <=0) {
+//			y = r;
 			// change moving direction to +
 			velY = Math.abs(velY);
-		} else if (y > gw.height - r) {
-			y = gw.height - r;
+		} else if (y > ((gw.height - 1) - r)) {
+			y = gw.height - 1 - r;
 			// change moving direction to -
 			velY = -Math.abs(velY);
 		}

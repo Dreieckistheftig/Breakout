@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 
 import breakout.model.Ball;
 import breakout.model.GameWorld;
+import breakout.model.Paddle;
 import de.cau.infprogoo.lighthouse.LighthouseDisplay;
 
 /**
@@ -72,6 +73,12 @@ public class LightHouseView {
 		Ellipse2D.Double ballS = new Ellipse2D.Double(ball.x, ball.y, ball.r * 2, ball.r * 2);
 		g.fill(ballS);
 
+		Paddle paddle = gw.paddle;
+
+		g.setColor(Color.YELLOW);
+		// Draw Paddle on the image.
+		g.fillRect((int) paddle.x, (int) paddle.y, (int) paddle.pw, (int) paddle.ph);
+
 		g.dispose();
 
 	}
@@ -97,7 +104,14 @@ public class LightHouseView {
 				backbuffer[index++] = (byte) (argb >> 16);
 				backbuffer[index++] = (byte) (argb >> 8);
 				backbuffer[index++] = (byte) (argb);
+
+				if (argb == -16777216) {
+					System.out.print("-");
+				} else {
+					System.out.print(argb);
+				}
 			}
+			System.out.println();
 		}
 
 		if (!ld.isConnected()) {
