@@ -81,10 +81,8 @@ public class Main {
 			public void keyPressed(KeyEvent key) {
 				// TODO Auto-generated method stub
 				if (key.getKeyCode() == KeyEvent.VK_LEFT) {
-					System.out.println("left pressed");
 					gw.paddle.move(false, 1.0);
 				} else if (key.getKeyCode() == KeyEvent.VK_RIGHT) {
-					System.out.println("right pressed");
 					gw.paddle.move(true, 1.0);
 				}
 			}

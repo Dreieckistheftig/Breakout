@@ -40,9 +40,9 @@ public class Ball {
 		x += velX * delta;
 		y += velY * delta;
 
-		// Check for collision with x-axis.
-		if (x<= 0) {
-//			 x = r;
+		// Check for collision with y-axis.
+		if (x <= 0) {
+			// x = r;
 			// change moving direction to +
 			velX = Math.abs(velX);
 		} else if (x > ((gw.width - 1) - r)) {
@@ -51,13 +51,21 @@ public class Ball {
 			velX = -Math.abs(velX);
 		}
 
-		// Check for collision with y-axis.
-		if (y <=0) {
-//			y = r;
+		// Check for collision with x-axis.
+		if (y <= 0) {
+			// y = r;
 			// change moving direction to +
 			velY = Math.abs(velY);
-		} else if (y > ((gw.height - 1) - r)) {
-			y = gw.height - 1 - r;
+		} else if (y > (gw.height - r)) {
+//			y = gw.height - 1 - r;
+//			// change moving direction to -
+//			velY = -Math.abs(velY);
+			System.exit(0);
+		}
+
+		// Check for collision with the paddle.
+		if (gw.paddle.x <= (x+r) && (x+r) <= (gw.paddle.x + gw.paddle.pw) && (y+r) >= gw.paddle.y) {
+			y = gw.paddle.y-1+r;
 			// change moving direction to -
 			velY = -Math.abs(velY);
 		}
