@@ -26,4 +26,25 @@ public class Paddle {
 		this.ph = height;
 	}
 
+	/**
+	 * Move the paddle by the given value. DO NOT USE 0.
+	 * 
+	 * @param direction
+	 *            If true the paddle moves to the right, if false it moves to the
+	 *            left.
+	 * @param speed
+	 *            Number of pixel the paddle moves.
+	 */
+	public void move(boolean direction, double speed) {
+		if (direction == true) {
+			if ((x + pw) < gw.width) {
+				x += speed;
+			}
+		} else if (direction == false) {
+			if (x > 0) {
+				x -= speed;
+			}
+		}
+	}
+
 }

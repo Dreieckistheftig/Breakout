@@ -105,13 +105,13 @@ public class LightHouseView {
 				backbuffer[index++] = (byte) (argb >> 8);
 				backbuffer[index++] = (byte) (argb);
 
-				if (argb == -16777216) {
-					System.out.print("-");
-				} else {
-					System.out.print(argb);
-				}
+				// if (argb == -16777216) {
+				// System.out.print("-");
+				// } else {
+				// System.out.print(argb);
+				// }
 			}
-			System.out.println();
+			// System.out.println();
 		}
 
 		if (!ld.isConnected()) {

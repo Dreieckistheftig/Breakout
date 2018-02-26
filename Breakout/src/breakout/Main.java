@@ -1,5 +1,9 @@
 package breakout;
 
+import java.awt.RenderingHints.Key;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 import javax.swing.JFrame;
 
 import breakout.model.GameWorld;
@@ -58,24 +62,52 @@ public class Main {
 		vFrame.setLocationRelativeTo(null);
 		vFrame.setVisible(true);
 
+		// Keylistener
+		vFrame.addKeyListener(new KeyListener() {
+
+			@Override
+			public void keyTyped(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyReleased(KeyEvent arg0) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void keyPressed(KeyEvent key) {
+				// TODO Auto-generated method stub
+				if (key.getKeyCode() == KeyEvent.VK_LEFT) {
+					System.out.println("left pressed");
+					gw.paddle.move(false, 1.0);
+				} else if (key.getKeyCode() == KeyEvent.VK_RIGHT) {
+					System.out.println("right pressed");
+					gw.paddle.move(true, 1.0);
+				}
+			}
+		});
+
 		// Initialize a new LightHouseView (view) to show the game on the LightHouse
 		LightHouseView lhView = new LightHouseView(gw, 28, 14, "DoubleAA", "API-TOK_cN52-Afg8-7ONW-ngFD-eYu5");
 
 		// Save the current time in nano-seconds
 		long lastTime = System.nanoTime();
-		
+
 		// Update the views
 		while (true) {
 			long now = System.nanoTime();
-			
+
 			// Updating the GameWorld by giving the commenced time to scale the movement
 			gw.update((now - lastTime) / 1e9);
 			lastTime = now;
-			
+
 			// Update the views
 			view.repaint();
 			lhView.render();
-			
+
 			// Sleep for 20 milliseconds
 			try {
 				Thread.sleep(10);
