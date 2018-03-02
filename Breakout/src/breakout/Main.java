@@ -44,7 +44,7 @@ import breakout.view.LocalView;
  */
 
 public class Main {
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) {
 		// Initialize a new GameWorld (model) with a resolution of 28px width and 14px
 		// height.
 		GameWorld gw = new GameWorld(28, 14);
@@ -54,13 +54,8 @@ public class Main {
 		LocalView view = new LocalView(gw);
 
 		// Constructing a new JFrame to show the game locally
-		JFrame vFrame = new JFrame("Example");
-		vFrame.add(view);
-		vFrame.pack();
-		vFrame.setSize(600, 350);
-		vFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		vFrame.setLocationRelativeTo(null);
-		vFrame.setVisible(true);
+		JFrame vFrame = createFrame("Example", view);
+		
 
 		// Keylistener
 		vFrame.addKeyListener(new KeyListener() {
@@ -68,6 +63,10 @@ public class Main {
 			@Override
 			public void keyTyped(KeyEvent arg0) {
 				// TODO Auto-generated method stub
+				
+//		int[][] level1 = {{0,3,1,1,0,0,0},
+//						  {0,1,0,0,0,0,0}};
+		
 
 			}
 
@@ -83,7 +82,7 @@ public class Main {
 				/**
 				 * TODO Flag im Listener setzen, ob nach links, rechts oder gar nicht bewegt
 				 * werden soll. Dieses dann in einer paddel_update() Methode abfragen. -->
-				 * Abh‰ngig vom Framerate-Delta bewegen.
+				 * Abh√§ngig vom Framerate-Delta bewegen.
 				 */
 
 				if (key.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -95,7 +94,7 @@ public class Main {
 		});
 
 		// Initialize a new LightHouseView (view) to show the game on the LightHouse
-		LightHouseView lhView = new LightHouseView(gw, 28, 14, "DoubleAA", "API-TOK_cN52-Afg8-7ONW-ngFD-eYu5");
+		LightHouseView lhView = new LightHouseView(gw, 28, 14, "DoubleAA", "API-TOK_zXK5-BDWR-a4Bl-KJnR-HECz");
 
 		// Save the current time in nano-seconds
 		long lastTime = System.nanoTime();
@@ -112,12 +111,24 @@ public class Main {
 			view.repaint();
 			lhView.render();
 
-			// Sleep for 20 milliseconds
+			// Sleep for 10 milliseconds
 			try {
 				Thread.sleep(10);
-			} catch (InterruptedException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	
+	private static JFrame createFrame(String name, LocalView view) {
+		JFrame vFrame = new JFrame(name);
+		vFrame.add(view);
+		vFrame.pack();
+		vFrame.setSize(600, 350);
+		vFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		vFrame.setLocationRelativeTo(null);
+		vFrame.setVisible(true);
+		return vFrame;
 	}
 }

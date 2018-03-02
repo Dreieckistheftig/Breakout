@@ -42,7 +42,8 @@ public class LocalView extends JPanel {
 
 		// Draw a rectangle as border
 		// TODO the rectangle needs to be moved, the ball is going over the border.
-		//g.drawRect(0, 0, (int) ((gw.width-1) * scale), (int) ((gw.height-1) * scale));
+		// g.drawRect(0, 0, (int) ((gw.width-1) * scale), (int) ((gw.height-1) *
+		// scale));
 
 		// Draw the ball
 		Ball b = gw.ball;
@@ -52,8 +53,14 @@ public class LocalView extends JPanel {
 		// Draw paddle
 		Paddle p = gw.paddle;
 		g.setColor(Color.BLUE);
-//		g.drawRect((int) (p.x * scale), (int) (p.y * scale), (int) (p.pw * scale), (int) (p.ph * scale));
 		g.fillRect((int) (p.x * scale), (int) (p.y * scale), (int) (p.pw * scale), (int) (p.ph * scale));
+
+		for (int i = 0; i < gw.brickList.size(); i++) {
+
+			g.setColor(gw.brickList.get(i).colour);
+			g.fillRect((int) (gw.brickList.get(i).x * scale), (int) (gw.brickList.get(i).y * scale),
+					(int) (gw.brickList.get(i).xw * scale), (int) (gw.brickList.get(i).yh * scale));
+		}
 	}
 
 }
