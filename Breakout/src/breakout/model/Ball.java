@@ -57,15 +57,15 @@ public class Ball {
 			// change moving direction to +
 			velY = Math.abs(velY);
 		} else if (y > (gw.height - r)) {
-//			y = gw.height - 1 - r;
-//			// change moving direction to -
-//			velY = -Math.abs(velY);
-			System.exit(0);
+			// y = gw.height - 1 - r;
+			// change moving direction to -
+			// velY = -Math.abs(velY);
+			y = gw.height / 2;
 		}
 
 		// Check for collision with the paddle.
-		if (gw.paddle.x <= (x+r) && (x+r) <= (gw.paddle.x + gw.paddle.pw) && (y+r) >= gw.paddle.y) {
-			y = gw.paddle.y-1+r;
+		if (gw.paddle.x <= (x + r) && (x + r) <= (gw.paddle.x + gw.paddle.pw) && (y + r) >= gw.paddle.y) {
+			y = gw.paddle.y - 1 + r;
 			// change moving direction to -
 			velY = -Math.abs(velY);
 		}

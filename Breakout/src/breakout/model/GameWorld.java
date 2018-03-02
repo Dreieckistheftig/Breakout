@@ -33,7 +33,7 @@ public class GameWorld {
 
 		// Setting the velocity the ball is moving in one second (assuming that the
 		// time-delta given to the method in update() is in seconds).
-		ball.velX = ball.velY = 4;
+		ball.velX = ball.velY = 6;
 
 		// Create a new paddle.
 		paddle = new Paddle(this, width / 2, height * 0.93, width / 5, height * 0.08);

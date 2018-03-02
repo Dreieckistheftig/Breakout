@@ -79,7 +79,13 @@ public class Main {
 
 			@Override
 			public void keyPressed(KeyEvent key) {
-				// TODO Auto-generated method stub
+
+				/**
+				 * TODO Flag im Listener setzen, ob nach links, rechts oder gar nicht bewegt
+				 * werden soll. Dieses dann in einer paddel_update() Methode abfragen. -->
+				 * Abhängig vom Framerate-Delta bewegen.
+				 */
+
 				if (key.getKeyCode() == KeyEvent.VK_LEFT) {
 					gw.paddle.move(false, 1.0);
 				} else if (key.getKeyCode() == KeyEvent.VK_RIGHT) {
