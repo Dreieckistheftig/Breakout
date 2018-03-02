@@ -1,5 +1,9 @@
 package breakout.model;
 
+import java.awt.Color;
+import java.awt.geom.Ellipse2D;
+import java.util.ArrayList;
+
 import breakout.model.GameWorld;
 
 public class Ball {
@@ -43,17 +47,17 @@ public class Ball {
 		x += velX * delta;
 		y += velY * delta;
 
-		
 		// Check for collision with a wall.
 		checkWallCollision(x, y, xOld, yOld);
 
-		
 		// Check for collision with the paddle.
 		checkPaddleCollision(x, y, xOld, yOld);
-		
 
 		// Check for collision with the bricks.
-		checkBrickCollision(x, y, xOld, yOld);
+		if (checkBrickCollision(x, y) == true) {
+			x = xOld;
+			y = yOld;
+		}
 
 	}
 
@@ -64,7 +68,7 @@ public class Ball {
 			x = xOld;
 			y = yOld;
 			// change moving direction to +
-			
+
 			velX = Math.abs(velX);
 			return true;
 		} else if ((x + 2 * r) > gw.width) {
@@ -74,8 +78,7 @@ public class Ball {
 			velX = -Math.abs(velX);
 			return true;
 		}
-		
-		
+
 		// Check for collision with y-axis.
 		if (y < 0) {
 			x = xOld;
@@ -89,81 +92,89 @@ public class Ball {
 			// TODO end game
 			System.exit(0);
 		}
-		
+
 		return false;
 	}
-	
+
 	private boolean checkPaddleCollision(double x, double y, double xOld, double yOld) {
 		if ((y + 2 * r) > gw.paddle.y && x >= gw.paddle.x && (x + 2 * r) <= (gw.paddle.x + gw.paddle.pw)) {
 			x = xOld;
 			y = yOld;
-			velY = -Math.abs(velY);	
+			velY = -Math.abs(velY);
 			return true;
 		}
-		
+
 		return false;
 	}
-	
-	private boolean checkBrickCollision(double x, double y, double xOld, double yOld) {
-		for (int i = 0; i < gw.brickList.size(); i++) {
 
-			//if(velY > 0)
-			// oben
-			if (y + 2 * r >= gw.brickList.get(i).y && x >= gw.brickList.get(i).x
-					&& x + 2 * r <= (gw.brickList.get(i).x + gw.brickList.get(i).xw)) {
-				checkHitCounter(i);
-				velY = -Math.abs(velY);
-				x = xOld;
-				y = yOld;
-				return true;
-			} else
+	private boolean checkBrickCollision(double x, double y) {
+		boolean collision = false;
 
-			//if(velY < 0)
-			// unten
-			if (y <= (gw.brickList.get(i).y + gw.brickList.get(i).yh) && x + 2 * r >= gw.brickList.get(i).x
-					&& x <= (gw.brickList.get(i).x + gw.brickList.get(i).xw)) {
-				checkHitCounter(i);
-				velY = Math.abs(velY);
-				x = xOld;
-				y = yOld;
-				return true;
-			} else
+		// Avoid java.util.ConcurrentModificationException
+		ArrayList<Brick> bricksToBeRemoved = new ArrayList<>();
 
-			//if(velX > 0)
-			// links
-			if (y + 2 * r >= gw.brickList.get(i).y && y <= (gw.brickList.get(i).y + gw.brickList.get(i).yh)
-					&& x + 2 * r >= gw.brickList.get(i).x) {
-				checkHitCounter(i);
-				velX = -Math.abs(velX);
-				x = xOld;
-				y = yOld;
-				return true;
-			} else
+		Ellipse2D.Double ball = new Ellipse2D.Double(x, y, r * 2, r * 2);
+		for (Brick b : gw.brickList) {
+			if (ball.intersects(b.x, b.y, b.xw, b.yh)) {
+				// COLLISION!
+				System.out.println("Collision");
+				collision = true;
 
-			//if(velX < 0)
-			// rechts
-			if (y + 2 * r >= gw.brickList.get(i).y && y <= (gw.brickList.get(i).y + gw.brickList.get(i).yh)
-					&& x <= (gw.brickList.get(i).x + gw.brickList.get(i).xw)) {
-				checkHitCounter(i);
-				velX = Math.abs(velX);
-				x = xOld;
-				y = yOld;
-				return true;
+				double xCompareValue = interpolate(b.x, -1, b.x + b.xw, 1, x + r);
+				double yCompareValue = interpolate(b.y, -1, b.y + b.yh, 1, y + r);
+
+				if (xCompareValue > yCompareValue) {
+					// Oben oder unten
+					if (yCompareValue > -1) {
+						// unten
+						velY = Math.abs(velY);
+					} else {
+						// oben
+						velY = -Math.abs(velY);
+					}
+				} else if (xCompareValue == yCompareValue) {
+					System.exit(0);
+				} else {
+					// rechts oder links
+					if (xCompareValue > -1) {
+						// rechts
+						velX = Math.abs(velX);
+					} else {
+						// links
+						velX = -Math.abs(velX);
+					}
+				}
+
+				if (checkHitCounter(b) != null) {
+					bricksToBeRemoved.add(b);
+				}
+
 			}
 		}
-		return false;
-	}
-	
-	private void checkHitCounter(int i) {
-		if (gw.brickList.get(i).hits > 1) {
-			gw.brickList.get(i).hits -= 1;
 
-		} else if (gw.brickList.get(i).hits == 1) {
-			gw.brickList.remove(i);
-
-			System.out.println("Brick removed");
+		for (Brick brick : bricksToBeRemoved) {
+			gw.brickList.remove(brick);
 		}
 
+		return collision;
+	}
+
+	private Brick checkHitCounter(Brick brick) {
+		if (brick.hits > 1) {
+			brick.hits -= 1;
+			brick.colour = Color.BLUE;
+			return null;
+		} else if (brick.hits == 1) {
+			return brick;
+		}
+		return null;
+
+	}
+
+	private double interpolate(double x1, double y1, double x2, double y2, double x) {
+		// Have a look at
+		// http://www.peter-junglas.de/fh/vorlesungen/thermodynamik1/html/app-a.html
+		return y1 + ((y2 - y1) / (x2 - x1) * (x - x1));
 	}
 
 }

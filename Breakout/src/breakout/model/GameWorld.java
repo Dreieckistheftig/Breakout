@@ -44,7 +44,13 @@ public class GameWorld {
 		paddle = new Paddle(this, width / 2, height * 0.93, width / 5, height * 0.08);
 
 		// Create new bricks.
-		brickList.add(new Brick(this, 2, 2, 8, 1, Color.MAGENTA, BrickType.TRIPLE));
+
+		for (int j = 0; j < 4; j++) {
+			for (int i = 0; i < 14; i++) {
+				brickList.add(new Brick(this, i * 2, j, 1, 1, Color.MAGENTA, BrickType.DOUBLE));
+			}
+		}
+
 	}
 
 	/**
