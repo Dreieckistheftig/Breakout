@@ -1,6 +1,10 @@
 package breakout.model;
 
+import java.awt.Color;
+import java.util.ArrayList;
+
 import breakout.model.Ball;
+import breakout.model.Brick.BrickType;
 
 /**
  * GameWorld/Model.
@@ -14,6 +18,7 @@ public class GameWorld {
 
 	public final Ball ball;
 	public final Paddle paddle;
+	public ArrayList<Brick> brickList = new ArrayList<>();
 
 	/**
 	 * Constructor for the GameWorld.
@@ -29,7 +34,7 @@ public class GameWorld {
 
 		// Generate a new ball in THIS GameWorld, startpoint is in the middle of the
 		// world, radius is 0,5
-		ball = new Ball(this, width / 2, height / 2, .4);
+		ball = new Ball(this, width / 2, height / 2, .5);
 
 		// Setting the velocity the ball is moving in one second (assuming that the
 		// time-delta given to the method in update() is in seconds).
@@ -37,6 +42,9 @@ public class GameWorld {
 
 		// Create a new paddle.
 		paddle = new Paddle(this, width / 2, height * 0.93, width / 5, height * 0.08);
+
+		// Create new bricks.
+		brickList.add(new Brick(this, 2, 2, 8, 1, Color.MAGENTA, BrickType.TRIPLE));
 	}
 
 	/**

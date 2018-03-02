@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import breakout.model.Ball;
 import breakout.model.GameWorld;
@@ -59,7 +60,7 @@ public class LightHouseView {
 		Graphics2D g = (Graphics2D) image.getGraphics();
 
 		// Use AntiAliasing to be able to show the ball more precisely.
-		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		//g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		// Komplettes Display schwarz, damit nur die aktuelle Position des Balls
 		// angezeigt wird.
@@ -69,6 +70,7 @@ public class LightHouseView {
 		Ball ball = gw.ball;
 
 		g.setColor(Color.RED);
+
 		// Draw ball on the image.
 		Ellipse2D.Double ballS = new Ellipse2D.Double(ball.x, ball.y, ball.r * 2, ball.r * 2);
 		g.fill(ballS);
@@ -79,11 +81,19 @@ public class LightHouseView {
 		// Draw Paddle on the image.
 		g.fillRect((int) paddle.x, (int) paddle.y, (int) paddle.pw, (int) paddle.ph);
 
+		// Draw all bricks
+		for (int i = 0; i < gw.brickList.size(); i++) {
+
+			g.setColor(gw.brickList.get(i).colour);
+			g.fillRect((int) gw.brickList.get(i).x, (int) gw.brickList.get(i).y, (int) gw.brickList.get(i).xw,
+					(int) gw.brickList.get(i).yh);
+		}
+
 		g.dispose();
 
 	}
 
-	public void render() throws Exception {
+	public void render() {
 		updateImage();
 
 		// Read the pixels of the BufferedImage, split them up in the 3 (4 with alpha
@@ -115,9 +125,17 @@ public class LightHouseView {
 		}
 
 		if (!ld.isConnected()) {
-			ld.connect();
+			try {
+				ld.connect();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
-		ld.send(backbuffer);
+		try {
+			ld.send(backbuffer);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
