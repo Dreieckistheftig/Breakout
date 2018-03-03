@@ -57,6 +57,8 @@ public class Ball {
 		if (checkBrickCollision(x, y) == true) {
 			x = xOld;
 			y = yOld;
+			x += velX * delta;
+			y += velY * delta;
 		}
 
 	}
@@ -85,6 +87,7 @@ public class Ball {
 			y = yOld;
 			// change moving direction to +
 			velY = Math.abs(velY);
+			return true;
 		} else if (y > (gw.height - 2 * r)) {
 			// change moving direction to -
 			// velY = -Math.abs(velY);
@@ -117,38 +120,38 @@ public class Ball {
 		for (Brick b : gw.brickList) {
 			if (ball.intersects(b.x, b.y, b.xw, b.yh)) {
 				// COLLISION!
-				System.out.println("Collision");
 				collision = true;
 
-				double xCompareValue = interpolate(b.x, -1, b.x + b.xw, 1, x + r);
-				double yCompareValue = interpolate(b.y, -1, b.y + b.yh, 1, y + r);
-
-				if (xCompareValue > yCompareValue) {
-					// Oben oder unten
-					if (yCompareValue > -1) {
-						// unten
-						velY = Math.abs(velY);
-					} else {
-						// oben
-						velY = -Math.abs(velY);
+				if (ball.intersects(b.x, b.y, b.xw, 0.001)) {
+					// oben
+					velY = -Math.abs(velY);
+					System.out.println("oben");
+					if (checkHitCounter(b) != null) {
+						bricksToBeRemoved.add(b);
 					}
-				} else if (xCompareValue == yCompareValue) {
-					System.exit(0);
-				} else {
-					// rechts oder links
-					if (xCompareValue > -1) {
-						// rechts
-						velX = Math.abs(velX);
-					} else {
-						// links
-						velX = -Math.abs(velX);
+				} else if (ball.intersects(b.x, b.y, 0.001, b.yh)) {
+					// links
+					velX = -Math.abs(velX);
+					System.out.println("links");
+					if (checkHitCounter(b) != null) {
+						bricksToBeRemoved.add(b);
+					}
+
+				} else if (ball.intersects(b.x + b.xw - 0.001, b.y, 0.001, b.yh)) {
+					// rechts
+					velX = Math.abs(velX);
+					System.out.println("rechts");
+					if (checkHitCounter(b) != null) {
+						bricksToBeRemoved.add(b);
+					}
+				} else if (ball.intersects(b.x, b.y + b.yh - 0.001, b.xw, 0.001)) {
+					// unten
+					velY = Math.abs(velY);
+					System.out.println("unten");
+					if (checkHitCounter(b) != null) {
+						bricksToBeRemoved.add(b);
 					}
 				}
-
-				if (checkHitCounter(b) != null) {
-					bricksToBeRemoved.add(b);
-				}
-
 			}
 		}
 
@@ -169,12 +172,6 @@ public class Ball {
 		}
 		return null;
 
-	}
-
-	private double interpolate(double x1, double y1, double x2, double y2, double x) {
-		// Have a look at
-		// http://www.peter-junglas.de/fh/vorlesungen/thermodynamik1/html/app-a.html
-		return y1 + ((y2 - y1) / (x2 - x1) * (x - x1));
 	}
 
 }

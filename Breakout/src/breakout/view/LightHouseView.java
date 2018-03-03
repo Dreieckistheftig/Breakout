@@ -60,7 +60,7 @@ public class LightHouseView {
 		Graphics2D g = (Graphics2D) image.getGraphics();
 
 		// Use AntiAliasing to be able to show the ball more precisely.
-		//g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 		// Komplettes Display schwarz, damit nur die aktuelle Position des Balls
 		// angezeigt wird.
