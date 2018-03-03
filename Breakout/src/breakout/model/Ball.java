@@ -43,7 +43,7 @@ public class Ball {
 		// Save the old coordinates
 		double xOld = x;
 		double yOld = y;
-		
+
 		// Move the ball
 		x += velX * delta;
 		y += velY * delta;
@@ -166,13 +166,19 @@ public class Ball {
 
 	/**
 	 * Check the counter
+	 * 
 	 * @param brick
 	 * @return
 	 */
 	private Brick checkHitCounter(Brick brick) {
 		if (brick.hits > 1) {
 			brick.hits -= 1;
-			brick.colour = Color.BLUE;
+			// TODO write brick.update() and set color in there
+			if (brick.hits == 2) {
+				brick.colour = Color.BLUE;
+			} else if (brick.hits == 1) {
+				brick.colour = Color.GREEN;
+			}
 			return null;
 		} else if (brick.hits == 1) {
 			return brick;
