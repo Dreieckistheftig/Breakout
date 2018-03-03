@@ -38,13 +38,20 @@ public class GameWorld {
 
 		// Setting the velocity the ball is moving in one second (assuming that the
 		// time-delta given to the method in update() is in seconds).
-		ball.velX = ball.velY = 6;
+		ball.velX = 5;
+		ball.velY = 10;
 
 		// Create a new paddle.
 		paddle = new Paddle(this, width / 2, height * 0.93, width / 5, height * 0.08);
 
 		// Create new bricks.
-		brickList.add(new Brick(this, 2, 2, 8, 1, Color.MAGENTA, BrickType.TRIPLE));
+
+		for (int j = 0; j < 4; j++) {
+			for (int i = 0; i < 7; i++) {
+				brickList.add(new Brick(this, i * 4, j, 3, 1, Color.MAGENTA, BrickType.TRIPLE));
+			}
+		}
+
 	}
 
 	/**
