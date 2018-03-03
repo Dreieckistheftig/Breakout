@@ -40,10 +40,11 @@ public class Ball {
 	 */
 	public void update(double delta) {
 
-		// Move the ball
+		// Save the old coordinates
 		double xOld = x;
 		double yOld = y;
-
+		
+		// Move the ball
 		x += velX * delta;
 		y += velY * delta;
 
@@ -155,6 +156,7 @@ public class Ball {
 			}
 		}
 
+		// Remove bricks
 		for (Brick brick : bricksToBeRemoved) {
 			gw.brickList.remove(brick);
 		}
@@ -162,6 +164,11 @@ public class Ball {
 		return collision;
 	}
 
+	/**
+	 * Check the counter
+	 * @param brick
+	 * @return
+	 */
 	private Brick checkHitCounter(Brick brick) {
 		if (brick.hits > 1) {
 			brick.hits -= 1;

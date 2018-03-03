@@ -46,14 +46,11 @@ public class GameWorld {
 
 		// Create new bricks.
 
-		 for (int j = 0; j < 4; j++) {
-		 for (int i = 0; i < 14; i++) {
-		 brickList.add(new Brick(this, i*4, j, 3, 1, Color.MAGENTA,
-		 BrickType.DOUBLE));
-		 }
-		 }
-
-//		brickList.add(new Brick(this, 18, 7, 5, 1, Color.MAGENTA, BrickType.DOUBLE));
+		for (int j = 0; j < 4; j++) {
+			for (int i = 0; i < 7; i++) {
+				brickList.add(new Brick(this, i * 4, j, 3, 1, Color.MAGENTA, BrickType.DOUBLE));
+			}
+		}
 
 	}
 
