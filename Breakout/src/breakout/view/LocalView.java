@@ -42,7 +42,6 @@ public class LocalView extends JPanel {
 		super.paintComponent(g);
 
 		// Draw a rectangle as border
-		// TODO the rectangle needs to be moved, the ball is going over the border.
 		g.drawRect(0, 0, (int) ((gw.getWidth()) * scale), (int) ((gw.getHeight()) * scale));
 
 		// Draw the ball
@@ -57,14 +56,21 @@ public class LocalView extends JPanel {
 		g.fillRect((int) (p.getX() * scale), (int) (p.getY() * scale), (int) (p.getPw() * scale),
 				(int) (p.getPh() * scale));
 
+		// Draw the bricks.
 		for (int i = 0; i < gw.brickList.size(); i++) {
 
-			g.setColor(gw.brickList.get(i).colour);
-			g.fillRect((int) (gw.brickList.get(i).x * scale), (int) (gw.brickList.get(i).y * scale),
-					(int) (gw.brickList.get(i).xw * scale), (int) (gw.brickList.get(i).yh * scale));
+			g.setColor(gw.brickList.get(i).getColour());
+			g.fillRect((int) (gw.brickList.get(i).getX() * scale), (int) (gw.brickList.get(i).getY() * scale),
+					(int) (gw.brickList.get(i).getXw() * scale), (int) (gw.brickList.get(i).getYh() * scale));
+
 		}
 	}
 
+	/**
+	 * Getter for the scale value.
+	 * 
+	 * @return scale
+	 */
 	public static double getScale() {
 		return scale;
 	}

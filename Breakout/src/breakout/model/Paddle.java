@@ -28,7 +28,7 @@ public class Paddle {
 	}
 
 	/**
-	 * Move the paddle by the given value. DO NOT USE 0.
+	 * Move the paddle by the given value.
 	 * 
 	 * @param direction
 	 *            If true the paddle moves to the right, if false it moves to the
@@ -48,22 +48,48 @@ public class Paddle {
 		}
 	}
 
+	/**
+	 * Getter for x.
+	 * 
+	 * @return x
+	 */
 	public double getX() {
 		return x;
 	}
 
+	/**
+	 * Setter for x.
+	 * 
+	 * @param x
+	 *            x
+	 */
 	public void setX(double x) {
 		this.x = x;
 	}
 
+	/**
+	 * Getter for y.
+	 * 
+	 * @return y
+	 */
 	public double getY() {
 		return y;
 	}
 
+	/**
+	 * Getter for PaddleWidth.
+	 * 
+	 * @return pw
+	 */
 	public double getPw() {
 		return pw;
 	}
 
+	/**
+	 * Getter for PaddleHeight.
+	 * 
+	 * @return ph
+	 */
 	public double getPh() {
 		return ph;
 	}

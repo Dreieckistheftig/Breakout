@@ -191,14 +191,14 @@ public class Ball {
 
 		Ellipse2D.Double ball = new Ellipse2D.Double(x, y, r * 2, r * 2);
 		for (Brick b : gw.brickList) {
-			if (ball.intersects(b.x, b.y, b.xw, b.yh)) {
+			if (ball.intersects(b.getX(), b.getY(), b.getXw(), b.getYh())) {
 				// COLLISION!
 				collision = true;
 
 				// Generating very small rectangles on all four sides of the brick, to check the
 				// collision with intersects().
 
-				if (ball.intersects(b.x, b.y, b.xw, 0.001)) {
+				if (ball.intersects(b.getX(), b.getY(), b.getXw(), 0.001)) {
 					// Top side collision
 
 					// Change moving Vector
@@ -209,7 +209,7 @@ public class Ball {
 						bricksToBeRemoved.add(b);
 					}
 
-				} else if (ball.intersects(b.x, b.y, 0.001, b.yh)) {
+				} else if (ball.intersects(b.getX(), b.getY(), 0.001, b.getYh())) {
 					// Left side collision
 
 					// Change moving Vector
@@ -220,7 +220,7 @@ public class Ball {
 						bricksToBeRemoved.add(b);
 					}
 
-				} else if (ball.intersects(b.x + b.xw - 0.001, b.y, 0.001, b.yh)) {
+				} else if (ball.intersects(b.getX() + b.getXw() - 0.001, b.getY(), 0.001, b.getYh())) {
 					// Right side collision.
 
 					// Change moving vector
@@ -231,7 +231,7 @@ public class Ball {
 						bricksToBeRemoved.add(b);
 					}
 
-				} else if (ball.intersects(b.x, b.y + b.yh - 0.001, b.xw, 0.001)) {
+				} else if (ball.intersects(b.getX(), b.getY() + b.getYh() - 0.001, b.getXw(), 0.001)) {
 					// Bottom side collision
 
 					// Change moving vector
@@ -266,16 +266,24 @@ public class Ball {
 	 *         if it needs to be deleted, because this was the last hit.
 	 */
 	private Brick checkHitCounter(Brick brick) {
-		if (brick.hits > 1) {
-			brick.hits -= 1;
+		if (brick.getHits() > 1) {
+			
+			brick.setHits(brick.getHits() - 1);
 			// TODO write brick.update() and set color in there
-			if (brick.hits == 2) {
-				brick.colour = Color.BLUE;
-			} else if (brick.hits == 1) {
-				brick.colour = Color.GREEN;
+			
+			if (brick.getHits() == 2) {
+				
+				brick.setColour(Color.BLUE);
+				
+			} else if (brick.getHits() == 1) {
+				
+				brick.setColour(Color.GREEN);
+				
 			}
+			
 			return null;
-		} else if (brick.hits == 1) {
+						
+		} else if (brick.getHits() == 1) {
 			return brick;
 		}
 		return null;

@@ -84,9 +84,9 @@ public class LightHouseView {
 		// Draw all bricks
 		for (int i = 0; i < gw.brickList.size(); i++) {
 
-			g.setColor(gw.brickList.get(i).colour);
-			g.fillRect((int) gw.brickList.get(i).x, (int) gw.brickList.get(i).y, (int) gw.brickList.get(i).xw,
-					(int) gw.brickList.get(i).yh);
+			g.setColor(gw.brickList.get(i).getColour());
+			g.fillRect((int) gw.brickList.get(i).getX(), (int) gw.brickList.get(i).getY(),
+					(int) gw.brickList.get(i).getXw(), (int) gw.brickList.get(i).getYh());
 		}
 
 		g.dispose();
