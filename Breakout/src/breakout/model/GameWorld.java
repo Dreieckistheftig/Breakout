@@ -64,10 +64,20 @@ public class GameWorld {
 		ball.update(delta);
 	}
 
+	/**
+	 * Getter for width.
+	 * 
+	 * @return width
+	 */
 	public double getWidth() {
 		return width;
 	}
 
+	/**
+	 * Getter for height.
+	 * 
+	 * @return height
+	 */
 	public double getHeight() {
 		return height;
 	}
