@@ -49,24 +49,13 @@ public class Ball {
 		y += velY * delta;
 
 		// Check for collision with a wall.
-		if (checkWallCollision(x, y, xOld, yOld)) {
-			x += velX * delta;
-			y += velY * delta;
-		}
+		checkWallCollision(x, y, xOld, yOld);
 
 		// Check for collision with the paddle.
-		if (checkPaddleCollision(x, y, xOld, yOld)) {
-			x += velX * delta;
-			y += velY * delta;
-		}
+		checkPaddleCollision(x, y, xOld, yOld);
 
 		// Check for collision with the bricks.
-		if (checkBrickCollision(x, y) == true) {
-			x = xOld;
-			y = yOld;
-			x += velX * delta;
-			y += velY * delta;
-		}
+		checkBrickCollision(x, y);
 
 	}
 
@@ -133,10 +122,10 @@ public class Ball {
 			// Collision on the bottom
 
 			// change moving direction to -
-			// velY = -Math.abs(velY);
+			 velY = -Math.abs(velY);
 
 			// TODO end game
-			System.exit(0);
+			//System.exit(0);
 		}
 
 		return false;
@@ -174,85 +163,85 @@ public class Ball {
 	}
 
 	/**
-	 * Checks for collision with the bricks specified in the GameWorld. If there is
-	 * a collision, this method changes the moving vector accordingly.
-	 * 
-	 * @param x
-	 *            Upper left x coordinate of the surrounding rectangle of the ball.
-	 * @param y
-	 *            Upper left y coordinate of the surrounding rectangle of the ball.
-	 * @return true, if there is some kind of collision.
-	 */
-	private boolean checkBrickCollision(double x, double y) {
-		boolean collision = false;
+     * Checks for collision with the bricks specified in the GameWorld. If there is
+     * a collision, this method changes the moving vector accordingly.
+     * 
+     * @param x
+     *            Upper left x coordinate of the surrounding rectangle of the ball.
+     * @param y
+     *            Upper left y coordinate of the surrounding rectangle of the ball.
+     * @return true, if there is some kind of collision.
+     */
+    private boolean checkBrickCollision(double x, double y) {
+        boolean collision = false;
 
-		// Avoid java.util.ConcurrentModificationException
-		ArrayList<Brick> bricksToBeRemoved = new ArrayList<>();
+        // Avoid java.util.ConcurrentModificationException
+        ArrayList<Brick> bricksToBeRemoved = new ArrayList<>();
 
-		Ellipse2D.Double ball = new Ellipse2D.Double(x, y, r * 2, r * 2);
-		for (Brick b : gw.brickList) {
-			if (ball.intersects(b.getX(), b.getY(), b.getXw(), b.getYh())) {
-				// COLLISION!
-				collision = true;
+        Ellipse2D.Double ball = new Ellipse2D.Double(x, y, r * 2, r * 2);
+        for (Brick b : gw.brickList) {
+            if (ball.intersects(b.getX(), b.getY(), b.getXw(), b.getYh())) {
+                // COLLISION!
+                collision = true;
 
-				// Generating very small rectangles on all four sides of the brick, to check the
-				// collision with intersects().
+                // Generating very small rectangles on all four sides of the brick, to check the
+                // collision with intersects().
 
-				if (ball.intersects(b.getX(), b.getY(), b.getXw(), 0.001)) {
-					// Top side collision
+                if (ball.intersects(b.getX(), b.getY(), b.getXw(), 0.001)) {
+                    // Top side collision
 
-					// Change moving Vector
-					velY = -Math.abs(velY);
+                    // Change moving Vector
+                    velY = -Math.abs(velY);
+                    y = b.getY() - r * 2;
+// Check brick status
+                    if (checkHitCounter(b) != null) {
+                        bricksToBeRemoved.add(b);
+                    }
 
-					// Check brick status
-					if (checkHitCounter(b) != null) {
-						bricksToBeRemoved.add(b);
-					}
+                } else if (ball.intersects(b.getX(), b.getY() + b.getYh() - 0.001, b.getXw(), 0.001)) {
+                    // Bottom side collision
 
-				} else if (ball.intersects(b.getX(), b.getY(), 0.001, b.getYh())) {
-					// Left side collision
+                    // Change moving vector
+                    velY = Math.abs(velY);
+                    y = b.getY() + b.getYh();
 
-					// Change moving Vector
-					velX = -Math.abs(velX);
+                    // Check brick status
+                    if (checkHitCounter(b) != null) {
+                        bricksToBeRemoved.add(b);
+                    }
+                }
+                if (ball.intersects(b.getX(), b.getY(), 0.001, b.getYh())) {
+                    // Left side collision
 
-					// Check brick status
-					if (checkHitCounter(b) != null) {
-						bricksToBeRemoved.add(b);
-					}
+                    // Change moving Vector
+                    velX = -Math.abs(velX);
+                    x = b.getX() - r * 2;
+                    // Check brick status
+                    if (checkHitCounter(b) != null) {
+                        bricksToBeRemoved.add(b);
+                    }
 
-				} else if (ball.intersects(b.getX() + b.getXw() - 0.001, b.getY(), 0.001, b.getYh())) {
-					// Right side collision.
+                } else if (ball.intersects(b.getX() + b.getXw() - 0.001, b.getY(), 0.001, b.getYh())) {
+                    // Right side collision.
 
-					// Change moving vector
-					velX = Math.abs(velX);
+                    // Change moving vector
+                    velX = Math.abs(velX);
+                    x = b.getX() + b.getXw();
 
-					// Check brick status
-					if (checkHitCounter(b) != null) {
-						bricksToBeRemoved.add(b);
-					}
+                    // Check brick status
+                    if (checkHitCounter(b) != null) {
+                        bricksToBeRemoved.add(b);
+                    }
 
-				} else if (ball.intersects(b.getX(), b.getY() + b.getYh() - 0.001, b.getXw(), 0.001)) {
-					// Bottom side collision
+                }
+            }
+        }
 
-					// Change moving vector
-					velY = Math.abs(velY);
+        //Remove hit bricks
+        gw.brickList.removeAll(bricksToBeRemoved);
 
-					// Check brick status
-					if (checkHitCounter(b) != null) {
-						bricksToBeRemoved.add(b);
-					}
-
-				}
-			}
-		}
-
-		// Remove bricks, which have been hit.
-		for (Brick brick : bricksToBeRemoved) {
-			gw.brickList.remove(brick);
-		}
-
-		return collision;
-	}
+        return collision;
+    }
 
 	/**
 	 * Check the counter of the specified brick. If 3 hits are left, subtract one

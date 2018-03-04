@@ -107,11 +107,11 @@ public class Main {
 
 			// Update the views
 			view.repaint();
-			lhView.render();
+		//	lhView.render();
 
 			// Sleep for 10 milliseconds
 			try {
-				Thread.sleep(10);
+				Thread.sleep(20);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
