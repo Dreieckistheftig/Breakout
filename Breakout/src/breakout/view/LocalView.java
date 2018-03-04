@@ -1,6 +1,7 @@
 package breakout.view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
@@ -20,6 +21,8 @@ public class LocalView extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private final GameWorld gw;
+	private final double x;
+	private final double y;
 
 	// Scale we use to scale the world up.
 	private static double scale = 20;
@@ -32,6 +35,10 @@ public class LocalView extends JPanel {
 	 */
 	public LocalView(GameWorld gw) {
 		this.gw = gw;
+		x = ((gw.getWidth()) * scale);
+		y = ((gw.getHeight()) * scale);
+		
+		this.setPreferredSize(new Dimension((int) x, (int) y));
 	}
 
 	@Override
@@ -42,7 +49,7 @@ public class LocalView extends JPanel {
 		super.paintComponent(g);
 
 		// Draw a rectangle as border
-		g.drawRect(0, 0, (int) ((gw.getWidth()) * scale), (int) ((gw.getHeight()) * scale));
+		g.drawRect(0, 0, (int) x, (int) y);
 
 		// Draw the ball
 		Ball b = gw.ball;
@@ -71,7 +78,7 @@ public class LocalView extends JPanel {
 	 * 
 	 * @return scale
 	 */
-	public static double getScale() {
+	public double getScale() {
 		return scale;
 	}
 

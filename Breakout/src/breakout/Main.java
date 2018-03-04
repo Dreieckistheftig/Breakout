@@ -52,7 +52,8 @@ public class Main {
 		JFrame vFrame = createFrame("Example", view);
 		
 		// Initialize the KeyListener and MouseListener
-		Controller controller = new Controller(gw, vFrame);
+		@SuppressWarnings("unused")
+		Controller controller = new Controller(gw, vFrame, view);
 
 		// Initialize a new LightHouseView (view) to show the game on the LightHouse
 		LightHouseView lhView = new LightHouseView(gw, 28, 14, "DoubleAA", "API-TOK_zhwJ-w7O5-KeSw-omCx-Bgg3");
@@ -96,7 +97,9 @@ public class Main {
 		JFrame vFrame = new JFrame(name);
 		vFrame.add(view);
 		vFrame.pack();
-		vFrame.setSize(570, 320);
+		//nach .pack() nicht mehr nötig, da view jetzt eine echte Größe hat
+//		vFrame.setSize((int) (gw.getWidth() * view.getScale()), (int) (gw.getHeight() * view.getScale()));
+		vFrame.setResizable(false);
 		vFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		vFrame.setLocationRelativeTo(null);
 		vFrame.setVisible(true);

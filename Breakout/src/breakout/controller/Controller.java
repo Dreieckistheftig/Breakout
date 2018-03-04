@@ -7,6 +7,7 @@ import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
 import breakout.model.GameWorld;
+import breakout.view.LocalView;
 
 /**
  * Contains the Listeners to interact with the game.
@@ -17,6 +18,7 @@ import breakout.model.GameWorld;
 public class Controller {
 	private GameWorld gw;
 	private JFrame vFrame;
+	private LocalView view;
 	
 	/**
 	 * Constructor of a listener class for the game.
@@ -26,9 +28,10 @@ public class Controller {
 	 * @param vFrame
 	 * 			The frame to listen to.
 	 */
-	public Controller(GameWorld gw, JFrame vFrame) {
+	public Controller(GameWorld gw, JFrame vFrame, LocalView view) {
 		this.gw = gw;
 		this.vFrame = vFrame;
+		this.view = view;
 		
 		addKeyListener();
 		addMouseMotionListener();
@@ -47,7 +50,7 @@ public class Controller {
 
 			@Override
 			public void mouseMoved(MouseEvent arg0) {
-				gw.paddle.moveTo(arg0.getX());
+				gw.paddle.moveTo(arg0.getX() / (int) view.getScale());
 			}
 		});
 	}
@@ -59,12 +62,13 @@ public class Controller {
 		vFrame.addKeyListener(new KeyListener() {
 					
 			@Override
-			public void keyTyped(KeyEvent arg0) {
+			public void keyTyped(KeyEvent key) {
 								// TODO Auto-generated method stub
 
-								// int[][] level1 = {{0,3,1,1,0,0,0},
-								// {0,1,0,0,0,0,0}};
-
+				// Game pause on 'p'
+				if (key.getKeyChar() == 'p') {
+					gw.pause();
+				}
 			}
 					
 			@Override
@@ -83,9 +87,9 @@ public class Controller {
 				 */
 						
 				if (key.getKeyCode() == KeyEvent.VK_LEFT) {
-					gw.paddle.move(false, 1.0);
+					gw.paddle.move(false);
 				} else if (key.getKeyCode() == KeyEvent.VK_RIGHT) {
-					gw.paddle.move(true, 1.0);
+					gw.paddle.move(true);
 				}
 			}
 		});
