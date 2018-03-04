@@ -21,9 +21,8 @@ import de.cau.infprogoo.lighthouse.LighthouseDisplay;
 public class LightHouseView {
 
 	private final GameWorld gw;
-	private LighthouseDisplay ld;
+	private final LighthouseDisplay ld;
 	private final byte[] backbuffer;
-
 	private BufferedImage image;
 
 	/**
@@ -50,6 +49,15 @@ public class LightHouseView {
 		// pixels.
 		image = new BufferedImage(dW, dH, BufferedImage.TYPE_INT_RGB);
 		backbuffer = new byte[dW * dH * 3];
+	}
+	
+	/**
+	 * Getter for ld.
+	 * 
+	 * @return ld.
+	 */
+	public LighthouseDisplay getLd() {
+		return ld;
 	}
 
 	/**

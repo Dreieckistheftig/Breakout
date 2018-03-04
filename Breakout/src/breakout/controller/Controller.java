@@ -18,6 +18,14 @@ public class Controller {
 	private GameWorld gw;
 	private JFrame vFrame;
 	
+	/**
+	 * Constructor of a listener class for the game.
+	 * 
+	 * @param gw
+	 * 			The GameWorld to have impact on.
+	 * @param vFrame
+	 * 			The frame to listen to.
+	 */
 	public Controller(GameWorld gw, JFrame vFrame) {
 		this.gw = gw;
 		this.vFrame = vFrame;

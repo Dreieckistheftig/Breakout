@@ -70,9 +70,10 @@ public class Main {
 
 			// Update the views
 			view.repaint();
-			//TODO Maybe a handler for offline gaming?
-//			lhView.render();				
-				
+			if (lhView.getLd().isConnected()) {
+				lhView.render();				
+			}
+			
 			// Sleep for 10 milliseconds
 			try {
 				Thread.sleep(10);
