@@ -1,11 +1,7 @@
 package breakout;
 
-import java.awt.RenderingHints.Key;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
 import javax.swing.JFrame;
-
+import breakout.controller.Controller;
 import breakout.model.GameWorld;
 import breakout.view.LightHouseView;
 import breakout.view.LocalView;
@@ -42,7 +38,6 @@ import breakout.view.LocalView;
  * being destroyed by the ball). 9) Level clear, level advance and score
  * implementation. 10) Extras like highscore, items, etc.
  */
-
 public class Main {
 	public static void main(String[] args) {
 		// Initialize a new GameWorld (model) with a resolution of 28px width and 14px
@@ -55,45 +50,13 @@ public class Main {
 
 		// Constructing a new JFrame to show the game locally
 		JFrame vFrame = createFrame("Example", view);
-
-		// Keylistener
-		vFrame.addKeyListener(new KeyListener() {
-
-			@Override
-			public void keyTyped(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-
-				// int[][] level1 = {{0,3,1,1,0,0,0},
-				// {0,1,0,0,0,0,0}};
-
-			}
-
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-				// TODO Auto-generated method stub
-
-			}
-
-			@Override
-			public void keyPressed(KeyEvent key) {
-
-				/**
-				 * TODO Flag im Listener setzen, ob nach links, rechts oder gar nicht bewegt
-				 * werden soll. Dieses dann in einer paddel_update() Methode abfragen. -->
-				 * Abhängig vom Framerate-Delta bewegen.
-				 */
-
-				if (key.getKeyCode() == KeyEvent.VK_LEFT) {
-					gw.paddle.move(false, 1.0);
-				} else if (key.getKeyCode() == KeyEvent.VK_RIGHT) {
-					gw.paddle.move(true, 1.0);
-				}
-			}
-		});
+		
+		// Initialize the KeyListener and MouseListener
+		Controller controller = new Controller(gw, vFrame);
 
 		// Initialize a new LightHouseView (view) to show the game on the LightHouse
-		LightHouseView lhView = new LightHouseView(gw, 28, 14, "DoubleAA", "API-TOK_zXK5-BDWR-a4Bl-KJnR-HECz");
-
+		LightHouseView lhView = new LightHouseView(gw, 28, 14, "DoubleAA", "API-TOK_zhwJ-w7O5-KeSw-omCx-Bgg3");
+			
 		// Save the current time in nano-seconds
 		long lastTime = System.nanoTime();
 
@@ -107,8 +70,9 @@ public class Main {
 
 			// Update the views
 			view.repaint();
-			lhView.render();
-
+			//TODO Maybe a handler for offline gaming?
+//			lhView.render();				
+				
 			// Sleep for 10 milliseconds
 			try {
 				Thread.sleep(10);
@@ -118,6 +82,15 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Creates and fills a JFrame.
+	 * 
+	 * @param name
+	 * 			The Frame title.
+	 * @param view
+	 * 			The view to be displayed.
+	 * @return The filled JFrame.
+	 */
 	private static JFrame createFrame(String name, LocalView view) {
 		JFrame vFrame = new JFrame(name);
 		vFrame.add(view);

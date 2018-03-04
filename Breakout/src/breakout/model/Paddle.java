@@ -37,10 +37,13 @@ public class Paddle {
 	 *            Number of pixel the paddle moves.
 	 */
 	public void move(boolean direction, double speed) {
+		// Move right
 		if (direction == true) {
 			if ((x + pw) < gw.getWidth()) {
 				x += speed;
 			}
+			
+		// Move left
 		} else if (direction == false) {
 			if (x > 0) {
 				x -= speed;
@@ -48,6 +51,16 @@ public class Paddle {
 		}
 	}
 
+	/**
+	 * Moves the paddle to the mouse location but stays inside the frame borders.
+	 * 
+	 * @param mouseX
+	 * 			The mouse location.
+	 */
+	public void moveTo(int mouseX) {
+		//TODO
+	}
+	
 	/**
 	 * Getter for x.
 	 * 
@@ -93,5 +106,4 @@ public class Paddle {
 	public double getPh() {
 		return ph;
 	}
-
 }
