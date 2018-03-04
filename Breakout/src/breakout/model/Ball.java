@@ -145,10 +145,12 @@ public class Ball {
 	 * @return true if there is a collision.
 	 */
 	private boolean checkPaddleCollision(double x, double y, double xOld, double yOld) {
-		if ((y + 2 * r) > gw.getPaddle().getY() && x >= gw.getPaddle().getX()
-				&& (x + 2 * r) <= (gw.getPaddle().getX() + gw.getPaddle().getPw())) {
 
-			// Move the ball back to the position before the last move
+		Ellipse2D.Double ball = new Ellipse2D.Double(x, y, r * 2, r * 2);
+
+		if (ball.intersects(gw.getPaddle().getX(), gw.getPaddle().getY(), gw.getPaddle().getPw(),
+				gw.getPaddle().getPh())) {
+
 			x = xOld;
 			y = yOld;
 
