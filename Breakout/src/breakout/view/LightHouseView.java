@@ -67,7 +67,7 @@ public class LightHouseView {
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, image.getWidth(), image.getHeight());
 
-		Ball ball = gw.ball;
+		Ball ball = gw.getBall();
 
 		g.setColor(Color.RED);
 
@@ -75,7 +75,7 @@ public class LightHouseView {
 		Ellipse2D.Double ballS = new Ellipse2D.Double(ball.getX(), ball.getVelY(), ball.getR() * 2, ball.getR() * 2);
 		g.fill(ballS);
 
-		Paddle paddle = gw.paddle;
+		Paddle paddle = gw.getPaddle();
 
 		g.setColor(Color.YELLOW);
 		// Draw Paddle on the image.

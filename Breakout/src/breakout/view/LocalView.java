@@ -47,13 +47,13 @@ public class LocalView extends JPanel {
 		g.drawRect(0, 0, (int) ((gw.getWidth()) * scale), (int) ((gw.getHeight()) * scale));
 
 		// Draw the ball
-		Ball b = gw.ball;
+		Ball b = gw.getBall();
 		g.setColor(Color.RED);
 		g.fillOval((int) (b.getX() * scale), (int) (b.getY() * scale), (int) (b.getR() * 2 * scale),
 				(int) (b.getR() * 2 * scale));
 
 		// Draw paddle
-		Paddle p = gw.paddle;
+		Paddle p = gw.getPaddle();
 		g.setColor(Color.BLUE);
 		g.fillRect((int) (p.getX() * scale), (int) (p.getY() * scale), (int) (p.getPw() * scale),
 				(int) (p.getPh() * scale));

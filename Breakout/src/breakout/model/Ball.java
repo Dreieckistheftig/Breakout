@@ -145,8 +145,8 @@ public class Ball {
 	 * @return true if there is a collision.
 	 */
 	private boolean checkPaddleCollision(double x, double y, double xOld, double yOld) {
-		if ((y + 2 * r) > gw.paddle.getY() && x >= gw.paddle.getX()
-				&& (x + 2 * r) <= (gw.paddle.getX() + gw.paddle.getPw())) {
+		if ((y + 2 * r) > gw.getPaddle().getY() && x >= gw.getPaddle().getX()
+				&& (x + 2 * r) <= (gw.getPaddle().getX() + gw.getPaddle().getPw())) {
 
 			// Move the ball back to the position before the last move
 			x = xOld;
@@ -289,16 +289,6 @@ public class Ball {
 	}
 
 	/**
-	 * Setter for x.
-	 * 
-	 * @param x
-	 *            x
-	 */
-	public void setX(double x) {
-		this.x = x;
-	}
-
-	/**
 	 * Getter for y.
 	 * 
 	 * @return y
@@ -308,32 +298,12 @@ public class Ball {
 	}
 
 	/**
-	 * Setter for y.
-	 * 
-	 * @param y
-	 *            y
-	 */
-	public void setY(double y) {
-		this.y = y;
-	}
-
-	/**
 	 * Getter for r.
 	 * 
 	 * @return r
 	 */
 	public double getR() {
 		return r;
-	}
-
-	/**
-	 * Setter for r.
-	 * 
-	 * @param r
-	 *            r
-	 */
-	public void setR(double r) {
-		this.r = r;
 	}
 
 	/**

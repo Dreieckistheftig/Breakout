@@ -84,9 +84,9 @@ public class Main {
 				 */
 
 				if (key.getKeyCode() == KeyEvent.VK_LEFT) {
-					gw.paddle.move(false, 1.0);
+					gw.getPaddle().move(false, 1.0);
 				} else if (key.getKeyCode() == KeyEvent.VK_RIGHT) {
-					gw.paddle.move(true, 1.0);
+					gw.getPaddle().move(true, 1.0);
 				}
 			}
 		});

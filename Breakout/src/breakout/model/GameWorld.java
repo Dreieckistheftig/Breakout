@@ -16,8 +16,10 @@ public class GameWorld {
 
 	private final double width, height;
 
-	public final Ball ball;
-	public final Paddle paddle;
+	private final Ball ball;
+
+	private final Paddle paddle;
+
 	public ArrayList<Brick> brickList = new ArrayList<>();
 
 	/**
@@ -80,6 +82,22 @@ public class GameWorld {
 	 */
 	public double getHeight() {
 		return height;
+	}
+
+	/**
+	 * Getter for padle.
+	 * @return paddle
+	 */
+	public Paddle getPaddle() {
+		return paddle;
+	}
+	
+	/**
+	 * Getter for ball.
+	 * @return ball
+	 */
+	public Ball getBall() {
+		return ball;
 	}
 
 }
