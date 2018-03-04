@@ -55,7 +55,6 @@ public class Main {
 
 		// Constructing a new JFrame to show the game locally
 		JFrame vFrame = createFrame("Example", view);
-		
 
 		// Keylistener
 		vFrame.addKeyListener(new KeyListener() {
@@ -63,10 +62,9 @@ public class Main {
 			@Override
 			public void keyTyped(KeyEvent arg0) {
 				// TODO Auto-generated method stub
-				
-//		int[][] level1 = {{0,3,1,1,0,0,0},
-//						  {0,1,0,0,0,0,0}};
-		
+
+				// int[][] level1 = {{0,3,1,1,0,0,0},
+				// {0,1,0,0,0,0,0}};
 
 			}
 
@@ -119,13 +117,12 @@ public class Main {
 			}
 		}
 	}
-	
-	
+
 	private static JFrame createFrame(String name, LocalView view) {
 		JFrame vFrame = new JFrame(name);
 		vFrame.add(view);
 		vFrame.pack();
-		vFrame.setSize(600, 350);
+		vFrame.setSize(570, 320);
 		vFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		vFrame.setLocationRelativeTo(null);
 		vFrame.setVisible(true);

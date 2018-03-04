@@ -20,8 +20,9 @@ public class LocalView extends JPanel {
 	private static final long serialVersionUID = 1L;
 
 	private final GameWorld gw;
+
 	// Scale we use to scale the world up.
-	private double scale = 20;
+	private static double scale = 20;
 
 	/**
 	 * Constructor for LocalView.
@@ -42,18 +43,19 @@ public class LocalView extends JPanel {
 
 		// Draw a rectangle as border
 		// TODO the rectangle needs to be moved, the ball is going over the border.
-		// g.drawRect(0, 0, (int) ((gw.width-1) * scale), (int) ((gw.height-1) *
-		// scale));
+		g.drawRect(0, 0, (int) ((gw.getWidth()) * scale), (int) ((gw.getHeight()) * scale));
 
 		// Draw the ball
 		Ball b = gw.ball;
 		g.setColor(Color.RED);
-		g.fillOval((int) (b.x * scale), (int) (b.y * scale), (int) (b.r * 2 * scale), (int) (b.r * 2 * scale));
+		g.fillOval((int) (b.getX() * scale), (int) (b.getY() * scale), (int) (b.getR() * 2 * scale),
+				(int) (b.getR() * 2 * scale));
 
 		// Draw paddle
 		Paddle p = gw.paddle;
 		g.setColor(Color.BLUE);
-		g.fillRect((int) (p.x * scale), (int) (p.y * scale), (int) (p.pw * scale), (int) (p.ph * scale));
+		g.fillRect((int) (p.getX() * scale), (int) (p.getY() * scale), (int) (p.getPw() * scale),
+				(int) (p.getPh() * scale));
 
 		for (int i = 0; i < gw.brickList.size(); i++) {
 
@@ -61,6 +63,10 @@ public class LocalView extends JPanel {
 			g.fillRect((int) (gw.brickList.get(i).x * scale), (int) (gw.brickList.get(i).y * scale),
 					(int) (gw.brickList.get(i).xw * scale), (int) (gw.brickList.get(i).yh * scale));
 		}
+	}
+
+	public static double getScale() {
+		return scale;
 	}
 
 }

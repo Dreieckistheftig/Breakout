@@ -4,8 +4,9 @@ import breakout.model.GameWorld;
 
 public class Paddle {
 
-	public double x;
-	public final double y, pw, ph;
+	private double x;
+	private final double y, pw, ph;
+
 	private final GameWorld gw;
 
 	/**
@@ -37,7 +38,7 @@ public class Paddle {
 	 */
 	public void move(boolean direction, double speed) {
 		if (direction == true) {
-			if ((x + pw) < gw.width) {
+			if ((x + pw) < gw.getWidth()) {
 				x += speed;
 			}
 		} else if (direction == false) {
@@ -45,6 +46,26 @@ public class Paddle {
 				x -= speed;
 			}
 		}
+	}
+
+	public double getX() {
+		return x;
+	}
+
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	public double getY() {
+		return y;
+	}
+
+	public double getPw() {
+		return pw;
+	}
+
+	public double getPh() {
+		return ph;
 	}
 
 }

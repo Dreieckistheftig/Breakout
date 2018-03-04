@@ -14,7 +14,7 @@ import breakout.model.Brick.BrickType;
  */
 public class GameWorld {
 
-	public final double width, height;
+	private final double width, height;
 
 	public final Ball ball;
 	public final Paddle paddle;
@@ -38,8 +38,8 @@ public class GameWorld {
 
 		// Setting the velocity the ball is moving in one second (assuming that the
 		// time-delta given to the method in update() is in seconds).
-		ball.velX = 5;
-		ball.velY = 10;
+		ball.setVelX(5);
+		ball.setVelY(10);
 
 		// Create a new paddle.
 		paddle = new Paddle(this, width / 2, height * 0.93, width / 5, height * 0.08);
@@ -63,4 +63,13 @@ public class GameWorld {
 	public void update(double delta) {
 		ball.update(delta);
 	}
+
+	public double getWidth() {
+		return width;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
 }

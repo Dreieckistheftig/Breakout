@@ -72,14 +72,14 @@ public class LightHouseView {
 		g.setColor(Color.RED);
 
 		// Draw ball on the image.
-		Ellipse2D.Double ballS = new Ellipse2D.Double(ball.x, ball.y, ball.r * 2, ball.r * 2);
+		Ellipse2D.Double ballS = new Ellipse2D.Double(ball.getX(), ball.getVelY(), ball.getR() * 2, ball.getR() * 2);
 		g.fill(ballS);
 
 		Paddle paddle = gw.paddle;
 
 		g.setColor(Color.YELLOW);
 		// Draw Paddle on the image.
-		g.fillRect((int) paddle.x, (int) paddle.y, (int) paddle.pw, (int) paddle.ph);
+		g.fillRect((int) paddle.getX(), (int) paddle.getY(), (int) paddle.getPw(), (int) paddle.getPh());
 
 		// Draw all bricks
 		for (int i = 0; i < gw.brickList.size(); i++) {
@@ -115,13 +115,7 @@ public class LightHouseView {
 				backbuffer[index++] = (byte) (argb >> 8);
 				backbuffer[index++] = (byte) (argb);
 
-				// if (argb == -16777216) {
-				// System.out.print("-");
-				// } else {
-				// System.out.print(argb);
-				// }
 			}
-			// System.out.println();
 		}
 
 		if (!ld.isConnected()) {

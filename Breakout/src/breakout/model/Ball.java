@@ -8,8 +8,8 @@ import breakout.model.GameWorld;
 
 public class Ball {
 
-	public double x, y, r;
-	public double velX, velY;
+	private double x, y, r;
+	private double velX, velY;
 	private final GameWorld gw;
 
 	/**
@@ -49,10 +49,16 @@ public class Ball {
 		y += velY * delta;
 
 		// Check for collision with a wall.
-		checkWallCollision(x, y, xOld, yOld);
+		if (checkWallCollision(x, y, xOld, yOld)) {
+			x += velX * delta;
+			y += velY * delta;
+		}
 
 		// Check for collision with the paddle.
-		checkPaddleCollision(x, y, xOld, yOld);
+		if (checkPaddleCollision(x, y, xOld, yOld)) {
+			x += velX * delta;
+			y += velY * delta;
+		}
 
 		// Check for collision with the bricks.
 		if (checkBrickCollision(x, y) == true) {
@@ -64,32 +70,68 @@ public class Ball {
 
 	}
 
+	/**
+	 * Check for collision with a surrounding wall. If necessary, it changes the
+	 * vector for the movement.
+	 * 
+	 * @param x
+	 *            Upper left x coordinate of the surrounding rectangle of the ball.
+	 * @param y
+	 *            Upper left y coordinate of the surrounding rectangle of the ball.
+	 * @param xOld
+	 *            Old x coordinate
+	 * @param yOld
+	 *            Old y coordinate
+	 * @return true if there is some kind of collision.
+	 */
 	private boolean checkWallCollision(double x, double y, double xOld, double yOld) {
-		// Check for collision with x-axis.
+		// Check for collision with y-axis.
 		if (x < 0) {
-			// x = r;
-			x = xOld;
-			y = yOld;
-			// change moving direction to +
 
-			velX = Math.abs(velX);
-			return true;
-		} else if ((x + 2 * r) > gw.width) {
+			// Collision on the left side
+
+			// Move the ball back to the position before the last move
 			x = xOld;
 			y = yOld;
+
+			// change moving direction to +
+			velX = Math.abs(velX);
+
+			return true;
+
+		} else if ((x + 2 * r) > gw.getWidth()) {
+
+			// Collision on the right side
+
+			// Move the ball back to the position before the last move
+			x = xOld;
+			y = yOld;
+
 			// change moving direction to -
 			velX = -Math.abs(velX);
+
 			return true;
+
 		}
 
-		// Check for collision with y-axis.
+		// Check for collision with x-axis.
 		if (y < 0) {
+
+			// Collision on the top
+
+			// Move the ball back to the position before the last move
 			x = xOld;
 			y = yOld;
+
 			// change moving direction to +
 			velY = Math.abs(velY);
+
 			return true;
-		} else if (y > (gw.height - 2 * r)) {
+
+		} else if (y > (gw.getHeight() - 2 * r)) {
+
+			// Collision on the bottom
+
 			// change moving direction to -
 			// velY = -Math.abs(velY);
 
@@ -100,17 +142,47 @@ public class Ball {
 		return false;
 	}
 
+	/**
+	 * Check for collision with the paddle.
+	 * 
+	 * @param x
+	 *            Upper left x coordinate of the surrounding rectangle of the ball.
+	 * @param y
+	 *            Upper left y coordinate of the surrounding rectangle of the ball.
+	 * @param xOld
+	 *            Old x coordinate
+	 * @param yOld
+	 *            Old y coordinate
+	 * @return true if there is a collision.
+	 */
 	private boolean checkPaddleCollision(double x, double y, double xOld, double yOld) {
-		if ((y + 2 * r) > gw.paddle.y && x >= gw.paddle.x && (x + 2 * r) <= (gw.paddle.x + gw.paddle.pw)) {
+		if ((y + 2 * r) > gw.paddle.getY() && x >= gw.paddle.getX()
+				&& (x + 2 * r) <= (gw.paddle.getX() + gw.paddle.getPw())) {
+
+			// Move the ball back to the position before the last move
 			x = xOld;
 			y = yOld;
+
+			// change moving direction to -
 			velY = -Math.abs(velY);
+
 			return true;
+
 		}
 
 		return false;
 	}
 
+	/**
+	 * Checks for collision with the bricks specified in the GameWorld. If there is
+	 * a collision, this method changes the moving vector accordingly.
+	 * 
+	 * @param x
+	 *            Upper left x coordinate of the surrounding rectangle of the ball.
+	 * @param y
+	 *            Upper left y coordinate of the surrounding rectangle of the ball.
+	 * @return true, if there is some kind of collision.
+	 */
 	private boolean checkBrickCollision(double x, double y) {
 		boolean collision = false;
 
@@ -123,40 +195,58 @@ public class Ball {
 				// COLLISION!
 				collision = true;
 
+				// Generating very small rectangles on all four sides of the brick, to check the
+				// collision with intersects().
+
 				if (ball.intersects(b.x, b.y, b.xw, 0.001)) {
-					// oben
+					// Top side collision
+
+					// Change moving Vector
 					velY = -Math.abs(velY);
-					System.out.println("oben");
+
+					// Check brick status
 					if (checkHitCounter(b) != null) {
 						bricksToBeRemoved.add(b);
 					}
+
 				} else if (ball.intersects(b.x, b.y, 0.001, b.yh)) {
-					// links
+					// Left side collision
+
+					// Change moving Vector
 					velX = -Math.abs(velX);
-					System.out.println("links");
+
+					// Check brick status
 					if (checkHitCounter(b) != null) {
 						bricksToBeRemoved.add(b);
 					}
 
 				} else if (ball.intersects(b.x + b.xw - 0.001, b.y, 0.001, b.yh)) {
-					// rechts
+					// Right side collision.
+
+					// Change moving vector
 					velX = Math.abs(velX);
-					System.out.println("rechts");
+
+					// Check brick status
 					if (checkHitCounter(b) != null) {
 						bricksToBeRemoved.add(b);
 					}
+
 				} else if (ball.intersects(b.x, b.y + b.yh - 0.001, b.xw, 0.001)) {
-					// unten
+					// Bottom side collision
+
+					// Change moving vector
 					velY = Math.abs(velY);
-					System.out.println("unten");
+
+					// Check brick status
 					if (checkHitCounter(b) != null) {
 						bricksToBeRemoved.add(b);
 					}
+
 				}
 			}
 		}
 
-		// Remove bricks
+		// Remove bricks, which have been hit.
 		for (Brick brick : bricksToBeRemoved) {
 			gw.brickList.remove(brick);
 		}
@@ -165,10 +255,15 @@ public class Ball {
 	}
 
 	/**
-	 * Check the counter
+	 * Check the counter of the specified brick. If 3 hits are left, subtract one
+	 * and change the colour to BLUE. If 2 hits are left, subtract one and change
+	 * the colour to GREEN. If 1 hit is left, return the brick, because it needs to
+	 * be deleted.
 	 * 
 	 * @param brick
-	 * @return
+	 *            Brick to check on.
+	 * @return null, if the brick has at least 1 hit to go. OR: the specified brick,
+	 *         if it needs to be deleted, because this was the last hit.
 	 */
 	private Brick checkHitCounter(Brick brick) {
 		if (brick.hits > 1) {
@@ -185,6 +280,110 @@ public class Ball {
 		}
 		return null;
 
+	}
+
+	/**
+	 * Getter for x.
+	 * 
+	 * @return x
+	 */
+	public double getX() {
+		return x;
+	}
+
+	/**
+	 * Setter for x.
+	 * 
+	 * @param x
+	 *            x
+	 */
+	public void setX(double x) {
+		this.x = x;
+	}
+
+	/**
+	 * Getter for y.
+	 * 
+	 * @return y
+	 */
+	public double getY() {
+		return y;
+	}
+
+	/**
+	 * Setter for y.
+	 * 
+	 * @param y
+	 *            y
+	 */
+	public void setY(double y) {
+		this.y = y;
+	}
+
+	/**
+	 * Getter for r.
+	 * 
+	 * @return r
+	 */
+	public double getR() {
+		return r;
+	}
+
+	/**
+	 * Setter for r.
+	 * 
+	 * @param r
+	 *            r
+	 */
+	public void setR(double r) {
+		this.r = r;
+	}
+
+	/**
+	 * Getter vor velX.
+	 * 
+	 * @return velX
+	 */
+	public double getVelX() {
+		return velX;
+	}
+
+	/**
+	 * Setter for velX
+	 * 
+	 * @param velX
+	 *            velX
+	 */
+	public void setVelX(double velX) {
+		this.velX = velX;
+	}
+
+	/**
+	 * Getter for velY.
+	 * 
+	 * @return velY.
+	 */
+	public double getVelY() {
+		return velY;
+	}
+
+	/**
+	 * Setter for velY.
+	 * 
+	 * @param velY
+	 *            velY
+	 */
+	public void setVelY(double velY) {
+		this.velY = velY;
+	}
+
+	/**
+	 * Getter for GameWorld/gw.
+	 * 
+	 * @return gw
+	 */
+	public GameWorld getGw() {
+		return gw;
 	}
 
 }
