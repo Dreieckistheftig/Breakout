@@ -27,7 +27,7 @@ public class LocalView extends JPanel {
 	private final double y;
 
 	// Scale we use to scale the world up.
-	private static double scale = 20;
+	private static double scale = 40;
 
 	/**
 	 * Constructor for LocalView.
@@ -67,11 +67,9 @@ public class LocalView extends JPanel {
 
 		// Draw the bricks.
 		for (int i = 0; i < gw.brickList.size(); i++) {
-
 			g.setColor(gw.brickList.get(i).getColour());
 			g.fillRect((int) (gw.brickList.get(i).getX() * scale), (int) (gw.brickList.get(i).getY() * scale),
 					(int) (gw.brickList.get(i).getXw() * scale), (int) (gw.brickList.get(i).getYh() * scale));
-
 		}
 	}
 

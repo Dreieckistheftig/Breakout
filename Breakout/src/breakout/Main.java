@@ -68,13 +68,21 @@ public class Main {
 			gw.update((now - lastTime) / 1e9);
 			lastTime = now;
 
-			// Update the views
+			// Update the local view
 			view.repaint();
-
-			// if (lhView.getLd().isConnected()) { // Can't work like this, because the
-			// connection will be started in render()
-			lhView.render();
-			// }
+			
+			// Try connecting to the actual lighthouse
+			if (!lhView.getLd().isConnected()) {
+				try {
+					lhView.getLd().connect();
+				} catch (Exception e) {
+				}
+			}
+			
+			// Update the lighthouse view if connected
+			if (lhView.getLd().isConnected()) {
+				lhView.render();
+			}
 
 			// Sleep for 10 milliseconds
 			try {
@@ -98,9 +106,6 @@ public class Main {
 		JFrame vFrame = new JFrame(name);
 		vFrame.add(view);
 		vFrame.pack();
-		// nach .pack() nicht mehr nötig, da view jetzt eine echte Größe hat
-		// vFrame.setSize((int) (gw.getWidth() * view.getScale()), (int) (gw.getHeight()
-		// * view.getScale()));
 		vFrame.setResizable(false);
 		vFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		vFrame.setLocationRelativeTo(null);
