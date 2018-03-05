@@ -65,11 +65,17 @@ public class LocalView extends JPanel {
 		g.fillRect((int) (p.getX() * scale), (int) (p.getY() * scale), (int) (p.getPw() * scale),
 				(int) (p.getPh() * scale));
 
-		// Draw the bricks.
+		// Draw the bricks
 		for (int i = 0; i < gw.brickList.size(); i++) {
-			g.setColor(gw.brickList.get(i).getColour());
-			g.fillRect((int) (gw.brickList.get(i).getX() * scale), (int) (gw.brickList.get(i).getY() * scale),
+			// Draw brick border
+			g.setColor(Color.BLACK);
+			g.drawRect((int) (gw.brickList.get(i).getX() * scale), (int) (gw.brickList.get(i).getY() * scale),
 					(int) (gw.brickList.get(i).getXw() * scale), (int) (gw.brickList.get(i).getYh() * scale));
+			
+			// Draw filled brick
+			g.setColor(gw.brickList.get(i).getColour());
+			g.fillRect((int) (gw.brickList.get(i).getX() * scale + 1), (int) (gw.brickList.get(i).getY() * scale + 1),
+					(int) (gw.brickList.get(i).getXw() * scale - 1), (int) (gw.brickList.get(i).getYh() * scale - 1));
 		}
 	}
 
