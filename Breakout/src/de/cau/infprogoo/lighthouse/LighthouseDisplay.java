@@ -69,8 +69,7 @@ public class LighthouseDisplay {
 		try {
 			connect("wss://lighthouse.uni-kiel.de/user/" + username + "/model", true);
 		} catch (URISyntaxException e) {
-			// Needs ACM library
-//			throw new InvalidAttributeValueException("Given username is invalid for a connection");
+			throw new InvalidAttributeValueException("Given username is invalid for a connection");
 		}
 	}
 
