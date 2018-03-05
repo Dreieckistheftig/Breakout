@@ -50,13 +50,13 @@ public class Main {
 
 		// Constructing a new JFrame to show the game locally
 		JFrame vFrame = createFrame("Example", view);
-		
+
 		// Initialize the KeyListener and MouseListener
 		@SuppressWarnings("unused")
 		Controller controller = new Controller(gw, vFrame, view);
 
 		// Initialize a new LightHouseView (view) to show the game on the LightHouse
-		LightHouseView lhView = new LightHouseView(gw, 28, 14, "DoubleAA", "API-TOK_zhwJ-w7O5-KeSw-omCx-Bgg3");	
+		LightHouseView lhView = new LightHouseView(gw, 28, 14, "DoubleAA", "API-TOK_zhwJ-w7O5-KeSw-omCx-Bgg3");
 		// Save the current time in nano-seconds
 		long lastTime = System.nanoTime();
 
@@ -70,11 +70,12 @@ public class Main {
 
 			// Update the views
 			view.repaint();
-			
-			if (lhView.getLd().isConnected()) {
-				lhView.render();				
-			}
-			
+
+			// if (lhView.getLd().isConnected()) { // Can't work like this, because the
+			// connection will be started in render()
+			lhView.render();
+			// }
+
 			// Sleep for 10 milliseconds
 			try {
 				Thread.sleep(10);
@@ -88,17 +89,18 @@ public class Main {
 	 * Creates and fills a JFrame.
 	 * 
 	 * @param name
-	 * 			The Frame title.
+	 *            The Frame title.
 	 * @param view
-	 * 			The view to be displayed.
+	 *            The view to be displayed.
 	 * @return The filled JFrame.
 	 */
 	private static JFrame createFrame(String name, LocalView view) {
 		JFrame vFrame = new JFrame(name);
 		vFrame.add(view);
 		vFrame.pack();
-		//nach .pack() nicht mehr nötig, da view jetzt eine echte Größe hat
-//		vFrame.setSize((int) (gw.getWidth() * view.getScale()), (int) (gw.getHeight() * view.getScale()));
+		// nach .pack() nicht mehr nötig, da view jetzt eine echte Größe hat
+		// vFrame.setSize((int) (gw.getWidth() * view.getScale()), (int) (gw.getHeight()
+		// * view.getScale()));
 		vFrame.setResizable(false);
 		vFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		vFrame.setLocationRelativeTo(null);
