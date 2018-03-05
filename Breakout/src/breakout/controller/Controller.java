@@ -50,7 +50,7 @@ public class Controller {
 
 			@Override
 			public void mouseMoved(MouseEvent arg0) {
-				gw.paddle.moveTo(arg0.getX() / (int) view.getScale());
+				gw.getPaddle().moveTo(arg0.getX() / (int) view.getScale());
 			}
 		});
 	}
@@ -87,9 +87,9 @@ public class Controller {
 				 */
 						
 				if (key.getKeyCode() == KeyEvent.VK_LEFT) {
-					gw.paddle.move(false);
+					gw.getPaddle().move(false);
 				} else if (key.getKeyCode() == KeyEvent.VK_RIGHT) {
-					gw.paddle.move(true);
+					gw.getPaddle().move(true);
 				}
 			}
 		});
