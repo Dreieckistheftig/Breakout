@@ -4,9 +4,8 @@ import breakout.model.GameWorld;
 
 public class Paddle {
 
-	private double x;
+	private int x;
 	private final double y, pw, ph;
-
 	private final GameWorld gw;
 
 	/**
@@ -21,12 +20,23 @@ public class Paddle {
 	 */
 	public Paddle(GameWorld gw, double x, double y, double width, double height) {
 		this.gw = gw;
-		this.x = x;
+		this.x = (int) x;
 		this.y = y;
 		this.pw = width;
 		this.ph = height;
 	}
-
+	
+	/**
+	 * Move the paddle by the given value.
+	 * 
+	 * @param direction
+	 *            If true the paddle moves to the right, if false it moves to the
+	 *            left.
+	 */
+	public void move(boolean direction) {
+		move(direction, 1);
+	}
+	
 	/**
 	 * Move the paddle by the given value.
 	 * 
@@ -36,11 +46,14 @@ public class Paddle {
 	 * @param speed
 	 *            Number of pixel the paddle moves.
 	 */
-	public void move(boolean direction, double speed) {
+	private void move(boolean direction, int speed) {
+		// Move right
 		if (direction == true) {
 			if ((x + pw) < gw.getWidth()) {
 				x += speed;
 			}
+			
+		// Move left
 		} else if (direction == false) {
 			if (x > 0) {
 				x -= speed;
@@ -48,6 +61,27 @@ public class Paddle {
 		}
 	}
 
+	/**
+	 * Moves the paddle to the mouse location but stays inside the frame borders.
+	 * 
+	 * @param mouseX
+	 * 			The mouse location.
+	 */
+	public void moveTo(int mouseX) {
+		// Move left
+		if ((mouseX - ((int) pw / 2 + x)) < 0) {
+			while (x > 0 && mouseX != ((int) pw / 2 + x)) {
+				move(false, 1);
+			}
+		
+		//Move right
+		} else {
+			while ((x + (int) pw) < gw.getWidth() && mouseX != ((int) pw / 2 + x)) {
+				move(true, 1);
+			}
+		}
+	}
+	
 	/**
 	 * Getter for x.
 	 * 
@@ -64,7 +98,7 @@ public class Paddle {
 	 *            x
 	 */
 	public void setX(double x) {
-		this.x = x;
+		this.x = (int) x;
 	}
 
 	/**
@@ -93,5 +127,4 @@ public class Paddle {
 	public double getPh() {
 		return ph;
 	}
-
 }

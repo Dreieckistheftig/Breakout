@@ -16,6 +16,7 @@ public class GameWorld {
 
 	private final double width, height;
 
+	private boolean pause;
 	private final Ball ball;
 
 	private final Paddle paddle;
@@ -33,6 +34,7 @@ public class GameWorld {
 	public GameWorld(double width, double height) {
 		this.width = width;
 		this.height = height;
+		pause = true;
 
 		// Generate a new ball in THIS GameWorld, startpoint is in the middle of the
 		// world, radius is 0,5
@@ -57,15 +59,25 @@ public class GameWorld {
 	}
 
 	/**
-	 * Update the location of the ball.
+	 * Update the location of the ball if the game is not on pause.
 	 * 
 	 * @param delta
 	 *            time-delta in seconds.
 	 */
 	public void update(double delta) {
-		ball.update(delta);
+		if (!pause) {
+			ball.update(delta);
+			//TODO paddle.update(delta);
+		}
 	}
 
+	/**
+	 * Pauses and resumes the game.
+	 */
+	public void pause() {
+		pause = !pause;
+	}
+	
 	/**
 	 * Getter for width.
 	 * 
