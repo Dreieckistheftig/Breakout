@@ -127,13 +127,6 @@ public class LightHouseView {
 			}
 		}
 
-		if (!ld.isConnected()) {
-			try {
-				ld.connect();
-			} catch (Exception e) {
-			}
-		}
-
 		try {
 			ld.send(backbuffer);
 		} catch (IOException e) {

@@ -63,8 +63,6 @@ public class Controller {
 					
 			@Override
 			public void keyTyped(KeyEvent key) {
-								// TODO Auto-generated method stub
-
 				// Game pause on 'p'
 				if (key.getKeyChar() == 'p') {
 					gw.pause();
@@ -73,8 +71,7 @@ public class Controller {
 					
 			@Override
 			public void keyReleased(KeyEvent arg0) {
-								// TODO Auto-generated method stub
-
+				gw.getPaddle().setKeyStillPressed(false);
 			}
 					
 			@Override
@@ -86,10 +83,15 @@ public class Controller {
 				 * Abhängig vom Framerate-Delta bewegen.
 				 */
 						
+				gw.getPaddle().setKeyStillPressed(true);
+				
+				// Left and right paddle movement
 				if (key.getKeyCode() == KeyEvent.VK_LEFT) {
 					gw.getPaddle().move(false);
+					gw.endPause();
 				} else if (key.getKeyCode() == KeyEvent.VK_RIGHT) {
 					gw.getPaddle().move(true);
+					gw.endPause();
 				}
 			}
 		});

@@ -79,6 +79,13 @@ public class GameWorld {
 	}
 	
 	/**
+	 * Starts the game.
+	 */
+	public void endPause() {
+		pause = false;
+	}
+	
+	/**
 	 * Getter for width.
 	 * 
 	 * @return width
