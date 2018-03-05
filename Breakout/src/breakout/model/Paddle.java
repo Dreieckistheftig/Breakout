@@ -7,6 +7,7 @@ public class Paddle {
 	private int x;
 	private final double y, pw, ph;
 	private final GameWorld gw;
+	private boolean keyStillPressed;
 
 	/**
 	 * Constructor for the paddle.
@@ -126,5 +127,24 @@ public class Paddle {
 	 */
 	public double getPh() {
 		return ph;
+	}
+	
+	/**
+	 * Setter for keyStillPressed.
+	 * 
+	 * @param keyStillPressed
+	 *            keyStillPressed
+	 */
+	public void setKeyStillPressed(boolean keyStillPressed) {
+		this.keyStillPressed = keyStillPressed;
+	}
+
+	/**
+	 * Getter for keyStillPressed.
+	 * 
+	 * @return keyStillPressed
+	 */
+	public boolean getKeyStillPressed() {
+		return keyStillPressed;
 	}
 }
