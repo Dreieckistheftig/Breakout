@@ -88,8 +88,10 @@ public class Controller {
 				// Left and right paddle movement
 				if (key.getKeyCode() == KeyEvent.VK_LEFT) {
 					gw.getPaddle().move(false);
+					gw.endPause();
 				} else if (key.getKeyCode() == KeyEvent.VK_RIGHT) {
 					gw.getPaddle().move(true);
+					gw.endPause();
 				}
 			}
 		});
