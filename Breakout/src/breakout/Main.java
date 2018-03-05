@@ -92,7 +92,7 @@ public class Main {
 		});
 
 		// Initialize a new LightHouseView (view) to show the game on the LightHouse
-		LightHouseView lhView = new LightHouseView(gw, 28, 14, "DoubleAA", "API-TOK_zXK5-BDWR-a4Bl-KJnR-HECz");
+		LightHouseView lhView = new LightHouseView(gw, 28, 14, "DoubleAA", "API-TOK_zhwJ-w7O5-KeSw-omCx-Bgg3");
 
 		// Save the current time in nano-seconds
 		long lastTime = System.nanoTime();
