@@ -148,17 +148,58 @@ public class Ball {
 
 		Ellipse2D.Double ball = new Ellipse2D.Double(x, y, r * 2, r * 2);
 
-		if (ball.intersects(gw.getPaddle().getX(), gw.getPaddle().getY(), gw.getPaddle().getPw(),
+		// Split paddle in 4 parts
+		// The left and right ones change the velocity of velX accordingly to their
+		// position
+
+		if (ball.intersects(gw.getPaddle().getX(), gw.getPaddle().getY(), gw.getPaddle().getPw() / 4,
 				gw.getPaddle().getPh())) {
+			// first left block
 
 			x = xOld;
 			y = yOld;
 
-			// change moving direction to -
+			velY = -Math.abs(velY);
+			// change x velocity
+			if (-Math.abs(velX) * 2 > -12) {
+				velX = -Math.abs(velX) * 2;
+			} else {
+				velX = -Math.abs(velX);
+			}
+
+		} else if (ball.intersects(gw.getPaddle().getX() + (gw.getPaddle().getPw() / 4), gw.getPaddle().getY(),
+				gw.getPaddle().getPw() / 4, gw.getPaddle().getPh())) {
+
+			// second block from left
+			x = xOld;
+			y = yOld;
+
 			velY = -Math.abs(velY);
 
-			return true;
+			velX = velX * 0.75;
 
+		} else if (ball.intersects(gw.getPaddle().getX() + (gw.getPaddle().getPw() / 4) * 2, gw.getPaddle().getY(),
+				gw.getPaddle().getPw() / 4, gw.getPaddle().getPh())) {
+			// third block from left
+			x = xOld;
+			y = yOld;
+
+			velY = -Math.abs(velY);
+			velX = velX * 0.75;
+
+		} else if (ball.intersects(gw.getPaddle().getX() + (gw.getPaddle().getPw() / 4) * 3, gw.getPaddle().getY(),
+				gw.getPaddle().getPw() / 4, gw.getPaddle().getPh())) {
+			// fourth block from left
+			x = xOld;
+			y = yOld;
+
+			velY = -Math.abs(velY);
+			// change x velocity
+			if (Math.abs(velX) * 2 < 12) {
+				velX = Math.abs(velX) * 2;
+			} else {
+				velX = Math.abs(velX);
+			}
 		}
 
 		return false;
@@ -211,8 +252,7 @@ public class Ball {
 					if (checkHitCounter(b) != null) {
 						bricksToBeRemoved.add(b);
 					}
-				}
-				if (ball.intersects(b.getX(), b.getY(), 0.001, b.getYh())) {
+				} else if (ball.intersects(b.getX(), b.getY(), 0.001, b.getYh())) {
 					// Left side collision
 
 					// Change moving Vector
