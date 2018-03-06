@@ -50,7 +50,7 @@ public class GameWorld {
 
 		// Create new bricks.
 
-		for (int j = 0; j < 4; j++) {
+		for (int j = 0; j < 5; j++) {
 			for (int i = 0; i < 7; i++) {
 				brickList.add(new Brick(this, i * 4, j, 3, 1, Color.MAGENTA, BrickType.TRIPLE));
 			}

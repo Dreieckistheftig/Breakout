@@ -56,10 +56,18 @@ public class Main {
 		Controller controller = new Controller(gw, vFrame, view);
 
 		// Initialize a new LightHouseView (view) to show the game on the LightHouse
-		LightHouseView lhView = new LightHouseView(gw, 28, 14, "DoubleAA", "API-TOK_zhwJ-w7O5-KeSw-omCx-Bgg3");
+		LightHouseView lhView = new LightHouseView(gw, 28, 14, "DoubleAA", "API-TOK_ro+J-w86R-TATl-4cOV-YnSe");
 		// Save the current time in nano-seconds
 		long lastTime = System.nanoTime();
 
+		// Try connecting to the actual lighthouse
+		try {
+			if (!lhView.getLd().isConnected()) {
+				lhView.getLd().connect();
+			}
+		} catch (Exception e) {
+		}
+		
 		// Update the views
 		while (true) {
 			long now = System.nanoTime();
@@ -71,17 +79,13 @@ public class Main {
 			// Update the local view
 			view.repaint();
 			
-			// Try connecting to the actual lighthouse
-			if (!lhView.getLd().isConnected()) {
-				try {
-					lhView.getLd().connect();
-				} catch (Exception e) {
-				}
-			}
 			
 			// Update the lighthouse view if connected
-			if (lhView.getLd().isConnected()) {
-				lhView.render();
+			try {
+				if (lhView.getLd().isConnected()) {
+					lhView.render();
+				}
+			} catch (Exception e) {
 			}
 
 			// Sleep for 10 milliseconds
