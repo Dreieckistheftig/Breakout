@@ -33,6 +33,7 @@ public class Controller {
 		this.vFrame = vFrame;
 		this.view = view;
 		
+		// own methods (look below) (*we cannot use magic*)
 		addKeyListener();
 		addMouseMotionListener();
 	}
@@ -71,20 +72,12 @@ public class Controller {
 					
 			@Override
 			public void keyReleased(KeyEvent arg0) {
-				gw.getPaddle().setKeyStillPressed(false);
+				
 			}
 					
 			@Override
 			public void keyPressed(KeyEvent key) {
-					
-				/**
-				 * TODO Flag im Listener setzen, ob nach links, rechts oder gar nicht bewegt
-				 * werden soll. Dieses dann in einer paddel_update() Methode abfragen. -->
-				 * Abhängig vom Framerate-Delta bewegen.
-				 */
 						
-				gw.getPaddle().setKeyStillPressed(true);
-				
 				// Left and right paddle movement
 				if (key.getKeyCode() == KeyEvent.VK_LEFT) {
 					gw.getPaddle().move(false);

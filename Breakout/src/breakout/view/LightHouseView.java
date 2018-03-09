@@ -39,7 +39,6 @@ public class LightHouseView {
 	 * @param apitoken
 	 *            API-Token for the LightHouse-API.
 	 */
-	// TODO read the Height and Width from the specified GameWorld
 	public LightHouseView(GameWorld gw, int dW, int dH, String username, String apitoken) {
 		this.gw = gw;
 		ld = new LighthouseDisplay(username, apitoken);

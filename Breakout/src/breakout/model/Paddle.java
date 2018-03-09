@@ -2,12 +2,17 @@ package breakout.model;
 
 import breakout.model.GameWorld;
 
+/**
+ * Implementation of a paddle object, defined by the GameWorld it is used in and
+ * the upper left x,y coordinates and the width/height.
+ * @author stu208450
+ *
+ */
 public class Paddle {
 
 	private int x;
 	private final double y, pw, ph;
 	private final GameWorld gw;
-	private boolean keyStillPressed;
 
 	/**
 	 * Constructor for the paddle.
@@ -127,24 +132,5 @@ public class Paddle {
 	 */
 	public double getPh() {
 		return ph;
-	}
-	
-	/**
-	 * Setter for keyStillPressed.
-	 * 
-	 * @param keyStillPressed
-	 *            keyStillPressed
-	 */
-	public void setKeyStillPressed(boolean keyStillPressed) {
-		this.keyStillPressed = keyStillPressed;
-	}
-
-	/**
-	 * Getter for keyStillPressed.
-	 * 
-	 * @return keyStillPressed
-	 */
-	public boolean getKeyStillPressed() {
-		return keyStillPressed;
 	}
 }
