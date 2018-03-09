@@ -174,9 +174,12 @@ public class Ball {
 			x = xOld;
 			y = yOld;
 
+			if(!(velX * 0.75 < 0.1)) {
+				velX = velX * 0.75;
+			}
 			velY = -Math.abs(velY);
 
-			velX = velX * 0.75;
+			
 
 		} else if (ball.intersects(gw.getPaddle().getX() + (gw.getPaddle().getPw() / 4) * 2, gw.getPaddle().getY(),
 				gw.getPaddle().getPw() / 4, gw.getPaddle().getPh())) {
@@ -184,8 +187,10 @@ public class Ball {
 			x = xOld;
 			y = yOld;
 
+			if(!(velX * 0.75 < 0.1)) {
+				velX = velX * 0.75;
+			}
 			velY = -Math.abs(velY);
-			velX = velX * 0.75;
 
 		} else if (ball.intersects(gw.getPaddle().getX() + (gw.getPaddle().getPw() / 4) * 3, gw.getPaddle().getY(),
 				gw.getPaddle().getPw() / 4, gw.getPaddle().getPh())) {
