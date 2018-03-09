@@ -6,6 +6,13 @@ import java.util.ArrayList;
 
 import breakout.model.GameWorld;
 
+/**
+ * Implementation of a ball object, defined by the GameWorld it is used in and
+ * the upper left x,y coordinates and the radius.
+ * 
+ * @author stu208450
+ *
+ */
 public class Ball {
 
 	private double x, y, r;
@@ -24,11 +31,13 @@ public class Ball {
 	 * @param r
 	 *            radius.
 	 */
-	public Ball(GameWorld gw, double x, double y, double r) {
+	public Ball(GameWorld gw, double x, double y, double r, double velX, double velY) {
 		this.gw = gw;
 		this.x = x;
 		this.y = y;
 		this.r = r;
+		this.velX = velX;
+		this.velY = velY;
 	}
 
 	/**
@@ -121,11 +130,10 @@ public class Ball {
 
 			// Collision on the bottom
 
-			// change moving direction to -
-			// velY = -Math.abs(velY);
+			velX = 0;
+			velY = 0;
 
-			// TODO end game
-			System.exit(0);
+			gw.newGame();
 		}
 
 		return false;
@@ -305,7 +313,6 @@ public class Ball {
 		if (brick.getHits() > 1) {
 
 			brick.setHits(brick.getHits() - 1);
-			// TODO write brick.update() and set color in there
 
 			if (brick.getHits() == 2) {
 
@@ -351,44 +358,6 @@ public class Ball {
 	 */
 	public double getR() {
 		return r;
-	}
-
-	/**
-	 * Getter vor velX.
-	 * 
-	 * @return velX
-	 */
-	public double getVelX() {
-		return velX;
-	}
-
-	/**
-	 * Setter for velX
-	 * 
-	 * @param velX
-	 *            velX
-	 */
-	public void setVelX(double velX) {
-		this.velX = velX;
-	}
-
-	/**
-	 * Getter for velY.
-	 * 
-	 * @return velY.
-	 */
-	public double getVelY() {
-		return velY;
-	}
-
-	/**
-	 * Setter for velY.
-	 * 
-	 * @param velY
-	 *            velY
-	 */
-	public void setVelY(double velY) {
-		this.velY = velY;
 	}
 
 	/**

@@ -2,12 +2,17 @@ package breakout.model;
 
 import java.awt.Color;
 
+/**
+ * Implementation of a brick object, defined by the GameWorld it is used in and
+ * the upper left x,y coordinates, the width/height, the colour and the brick-type.
+ * @author stu208450
+ *
+ */
 public class Brick {
 
 	private final double x, y, xw, yh;
 	private int hits;
 	private Color colour;
-	private final GameWorld gw;
 
 	/**
 	 * Constructor for a new Brick.
@@ -29,7 +34,6 @@ public class Brick {
 	 */
 	public Brick(GameWorld gw, double x, double y, double xw, double yh, Color colour, BrickType typ) {
 
-		this.gw = gw;
 		this.x = x;
 		this.y = y;
 		this.xw = xw;
@@ -130,15 +134,6 @@ public class Brick {
 	 */
 	public double getYh() {
 		return yh;
-	}
-
-	/**
-	 * Get the GameWorld the brick is placed in.
-	 * 
-	 * @return GameWorld
-	 */
-	public GameWorld getGw() {
-		return gw;
 	}
 
 }

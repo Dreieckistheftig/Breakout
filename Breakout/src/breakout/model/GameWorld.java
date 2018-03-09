@@ -2,6 +2,7 @@ package breakout.model;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Random;
 
 import breakout.model.Ball;
 import breakout.model.Brick.BrickType;
@@ -17,9 +18,11 @@ public class GameWorld {
 	private final double width, height;
 
 	private boolean pause;
-	private final Ball ball;
+	private Ball ball;
 
-	private final Paddle paddle;
+	private Paddle paddle;
+
+	private Random rdm = new Random();
 
 	public ArrayList<Brick> brickList = new ArrayList<>();
 
@@ -34,32 +37,41 @@ public class GameWorld {
 	public GameWorld(double width, double height) {
 		this.width = width;
 		this.height = height;
+
+		newGame();
+	}
+
+	/**
+	 * Create a new Game. Set the ball/paddle back to it's initial position and
+	 * create new random bricks.
+	 */
+	void newGame() {
 		pause = true;
 
 		// Generate a new ball in THIS GameWorld, startpoint is in the middle of the
-		// world, radius is 0,5
-		ball = new Ball(this, width / 2, height / 2, .5);
-
+		// world, radius is 0,5.
 		// Setting the velocity the ball is moving in one second (assuming that the
 		// time-delta given to the method in update() is in seconds).
-		ball.setVelX(5);
-		ball.setVelY(10);
+		ball = new Ball(this, width / 2, height / 2, 0.5, 5, 10);
 
 		// Create a new paddle.
 		paddle = new Paddle(this, width / 2, height * 0.93, width / 5, height * 0.08);
 
 		// Create new bricks.
-
-		for (int j = 0; j < 5; j++) {
+		brickList.clear();
+		for (int j = 0; j < 1; j++) {
 			for (int i = 0; i < 7; i++) {
-				brickList.add(new Brick(this, i * 4, j, 3, 1, Color.MAGENTA, BrickType.TRIPLE));
+				if (rdm.nextInt(9) > 1) {
+					brickList.add(new Brick(this, i * 4, j, 3, 1, Color.MAGENTA, BrickType.TRIPLE));
+				}
 			}
 		}
 
 	}
 
 	/**
-	 * Update the location of the ball if the game is not on pause.
+	 * Update the location of the ball if the game is not on pause and reset the
+	 * game if all bricks are gone.
 	 * 
 	 * @param delta
 	 *            time-delta in seconds.
@@ -67,7 +79,9 @@ public class GameWorld {
 	public void update(double delta) {
 		if (!pause) {
 			ball.update(delta);
-			//TODO paddle.update(delta);
+			if (brickList.size() == 0) {
+				newGame();
+			}
 		}
 	}
 
@@ -77,14 +91,14 @@ public class GameWorld {
 	public void pause() {
 		pause = !pause;
 	}
-	
+
 	/**
 	 * Starts the game.
 	 */
 	public void endPause() {
 		pause = false;
 	}
-	
+
 	/**
 	 * Getter for width.
 	 * 
@@ -105,14 +119,16 @@ public class GameWorld {
 
 	/**
 	 * Getter for padle.
+	 * 
 	 * @return paddle
 	 */
 	public Paddle getPaddle() {
 		return paddle;
 	}
-	
+
 	/**
 	 * Getter for ball.
+	 * 
 	 * @return ball
 	 */
 	public Ball getBall() {
